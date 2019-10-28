@@ -106,14 +106,7 @@ IS 'monto a pagar siguiente gestion en moneda original, este monto no compromete
 COMMENT ON COLUMN ads.tadenda_det.monto_pago_sg_mb
 IS 'monto para la siguiente gestion en moenda base, este monto no comprometera presupuestos';
 
-CREATE TRIGGER trig_adenda_det_total_pago
-  AFTER INSERT OR UPDATE OR DELETE
-  ON ads.tadenda_det
-
-FOR EACH ROW
-  EXECUTE PROCEDURE ads.f_update_adenda_total_pago();
-
 ALTER TABLE ads.tadenda_det
   OWNER TO postgres;
 
-/***********************************F-SCP-VAN-ADS-0-17/10/2019**********************************************/
+/***********************************F-SCP-VAN-ADS-0-17/10/2019****************************************/
