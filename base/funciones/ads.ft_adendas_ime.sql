@@ -1,7 +1,10 @@
-create or replace function ads.ft_adendas_ime(p_administrador integer, p_id_usuario integer, p_tabla character varying,
-                                              p_transaccion character varying) returns character varying
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.ft_adendas_ime (
+  p_administrador integer,
+  p_id_usuario integer,
+  p_tabla varchar,
+  p_transaccion varchar
+)
+RETURNS varchar AS
 $body$
 /**************************************************************************
  SISTEMA:		Adendas
@@ -394,7 +397,12 @@ EXCEPTION
         raise exception '%',v_resp;
 
 END;
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function ads.ft_adendas_ime(integer, integer, varchar, varchar) owner to postgres;
-
+ALTER FUNCTION ads.ft_adendas_ime (p_administrador integer, p_id_usuario integer, p_tabla varchar, p_transaccion varchar)
+  OWNER TO postgres;

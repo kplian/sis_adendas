@@ -1,13 +1,15 @@
-create or replace function ads.f_lista_funcionario_aprobador(p_id_usuario integer, p_id_tipo_estado integer,
-                                                             p_fecha date DEFAULT now(),
-                                                             p_id_estado_wf integer DEFAULT NULL::integer,
-                                                             p_count boolean DEFAULT false, p_limit integer DEFAULT 1,
-                                                             p_start integer DEFAULT 0,
-                                                             p_filtro character varying DEFAULT '0=0'::character varying) returns SETOF record
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_lista_funcionario_aprobador (
+  p_id_usuario integer,
+  p_id_tipo_estado integer,
+  p_fecha date = now(),
+  p_id_estado_wf integer = NULL::integer,
+  p_count boolean = false,
+  p_limit integer = 1,
+  p_start integer = 0,
+  p_filtro varchar = '0=0'::character varying
+)
+RETURNS SETOF record AS
 $body$
-
 DECLARE
     g_registros                 record;
     v_consulta                  varchar;
@@ -213,6 +215,12 @@ EXCEPTION
         raise exception '%',v_resp;
 
 END;
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100 ROWS 1000;
 
-alter function ads.f_lista_funcionario_aprobador(integer, integer, date, integer, boolean, integer, integer, varchar) owner to postgres;
+ALTER FUNCTION ads.f_lista_funcionario_aprobador (p_id_usuario integer, p_id_tipo_estado integer, p_fecha date, p_id_estado_wf integer, p_count boolean, p_limit integer, p_start integer, p_filtro varchar)
+  OWNER TO postgres;

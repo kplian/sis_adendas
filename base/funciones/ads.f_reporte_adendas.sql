@@ -1,24 +1,30 @@
-create or replace function ads.f_reporte_adendas(p_administrador integer, p_id_usuario integer,
-                                                 p_tabla character varying,
-                                                 p_transaccion character varying) returns character varying
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_reporte_adendas (
+  p_administrador integer,
+  p_id_usuario integer,
+  p_tabla varchar,
+  p_transaccion varchar
+)
+RETURNS varchar AS
 $body$
 declare
     v_nombre_funcion varchar = 'ads.f_reporte_adendas';
     v_resp           varchar;
     v_consulta       varchar;
     v_parametros     record;
+    v_id_adenda      integer;
 begin
     v_parametros = pxp.f_get_record(p_tabla);
+
+    select id_adenda into v_id_adenda from ads.tadendas where id_proceso_wf = v_parametros.id_proceso_wf;
+
     if p_transaccion = 'ADS_RPT_DETALLE' then
         v_consulta = 'select adt.centro_costos::varchar, adt.nombre_partida::varchar, adt.precio_total::numeric
                         from ads.detalle_adenda adt
-                        where adt.id_adenda = ' || v_parametros.id_adenda;
+                        where adt.id_adenda = ' || v_id_adenda;
         return v_consulta;
     elsif p_transaccion = 'ADS_RPT_PRESU' then
         v_consulta = 'select centro_costo, nombre_partida, SUM(monto_anterior) monto_anterior ,sum(monto_operacion) monto_operacion, disponible, estado
-                        from ads.f_verificar_presupuesto(' || v_parametros.id_adenda || ')
+                        from ads.f_verificar_presupuesto(' || v_id_adenda || ')
                             GROUP BY centro_costo, nombre_partida, disponible,estado
                             HAVING estado is not null';
         return v_consulta;
@@ -49,7 +55,7 @@ begin
                  left join orga.vfuncionario fun on fun.id_funcionario = ad.id_funcionario
                 left join wf.tproceso_wf wfp on wfp.id_proceso_wf = ad.id_proceso_wf
                 left join wf.testado_wf wfe on wfe.id_estado_wf = ad.id_estado_wf
-                     WHERE ad.id_adenda=' || v_parametros.id_adenda;
+                     WHERE ad.id_adenda=' || v_id_adenda;
         return v_consulta;
     elsif p_transaccion = 'ADS_RPT_AD_DET' then
         v_consulta = ' ';
@@ -63,7 +69,12 @@ exception
         v_resp = pxp.f_agrega_clave(v_resp, 'procedimientos', v_nombre_funcion);
         raise exception '%', v_resp;
 end;
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function ads.f_reporte_adendas(integer, integer, varchar, varchar) owner to postgres;
-
+ALTER FUNCTION ads.f_reporte_adendas (p_administrador integer, p_id_usuario integer, p_tabla varchar, p_transaccion varchar)
+  OWNER TO postgres;

@@ -193,7 +193,7 @@ class MODAdenda extends MODbase
         $this->transaccion = 'ADS_RPT_AD';
         $this->tipo_procedimiento = 'SEL';
 
-        $this->setParametro('id_adenda', 'id_adenda', 'int4');
+        $this->setParametro('id_proceso_wf', 'id_proceso_wf', 'int4');
 
         $this->captura('numero', 'varchar');
         $this->captura('num_tramite', 'varchar');

@@ -1,6 +1,7 @@
-create or replace function ads.f_validar_estado_op(id_op integer) returns character varying
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_validar_estado_op (
+  id_op integer
+)
+RETURNS varchar AS
 $body$
 /**************************************************************************
  SISTEMA:		Sistema Adendas
@@ -44,7 +45,12 @@ EXCEPTION
         raise exception '%',v_resp;
 
 END
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function  ads.f_validar_estado_op(integer) owner to postgres;
-
+ALTER FUNCTION ads.f_validar_estado_op (id_op integer)
+  OWNER TO postgres;

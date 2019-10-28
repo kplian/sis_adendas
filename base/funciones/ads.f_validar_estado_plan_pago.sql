@@ -1,6 +1,7 @@
-create or replace function ads.f_validar_estado_plan_pago(p_id_obligacion integer) returns boolean
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_validar_estado_plan_pago (
+  p_id_obligacion integer
+)
+RETURNS boolean AS
 $body$
 declare
     v_resp           varchar;
@@ -24,7 +25,12 @@ exception
         v_resp = pxp.f_agrega_clave(v_resp, 'procedimientos', v_nombre_funcion);
         RAISE EXCEPTION '%', v_resp;
 end;
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function ads.f_validar_estado_plan_pago(integer) owner to dbavalvarado;
-
+ALTER FUNCTION ads.f_validar_estado_plan_pago (p_id_obligacion integer)
+  OWNER TO dbavalvarado;

@@ -402,7 +402,7 @@ header("content-type: text/javascript; charset=UTF-8");
             var rec = this.sm.getSelected();
             Ext.Ajax.request({
                 url: '../../sis_adendas/control/ReportesAdenda/reporteAdendas',
-                params: {'id_adenda': rec.data.id_adenda, 'estado': rec.data.estado},
+                params: {'id_proceso_wf': rec.data.id_proceso_wf, 'estado': rec.data.estado},
                 success: this.successExport,
                 failure: this.conexionFailure,
                 timeout: this.timeout,
@@ -411,9 +411,10 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         onButtonOrden: function () {
             var rec = this.sm.getSelected();
+            console.log("ADENDA", rec);
             Ext.Ajax.request({
                 url: '../../sis_adendas/control/ReportesOrden/reporteOrden',
-                params: {'id_adenda': rec.data.id_adenda, 'estado': rec.data.estado},
+                params: {'id_proceso_wf': rec.data.id_proceso_wf, 'estado': rec.data.estado},
                 success: this.successExport,
                 failure: this.conexionFailure,
                 timeout: this.timeout,

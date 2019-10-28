@@ -1,7 +1,9 @@
-create or replace function ads.f_bloquear_obligacion_pago(p_id_obligacion_pago integer, p_bloquear integer DEFAULT 0) returns boolean
-    language plpgsql
-as
-$$
+CREATE OR REPLACE FUNCTION ads.f_bloquear_obligacion_pago (
+  p_id_obligacion_pago integer,
+  p_bloquear integer = 0
+)
+RETURNS boolean AS
+$body$
 declare
     v_nombre_funcion varchar = 'ads.f_bloquear_obligacion_pago';
     v_resp           varchar;
@@ -16,7 +18,12 @@ exception
         v_resp = pxp.f_agrega_clave(v_resp, 'codigo_error', v_nombre_funcion);
         raise exception '%', v_resp;
 end ;
-$$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function ads.f_bloquear_obligacion_pago(integer, integer) owner to postgres;
-
+ALTER FUNCTION ads.f_bloquear_obligacion_pago (p_id_obligacion_pago integer, p_bloquear integer)
+  OWNER TO postgres;

@@ -1,21 +1,19 @@
-create or replace function ads.f_clasificar_adenda_det()
-    returns TABLE
-            (
-                id_adenda          integer,
-                id_obligacion_pago integer,
-                id_obligacion_det  integer,
-                id_centro_costo    integer,
-                id_partida         integer,
-                centro_costo       character varying,
-                nombre_partida     character varying,
-                monto_anterior     numeric,
-                nuevo_monto        numeric,
-                monto_operacion    numeric,
-                estado             character varying,
-                descripcion             character varying
-            )
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_clasificar_adenda_det (
+)
+RETURNS TABLE (
+  id_adenda integer,
+  id_obligacion_pago integer,
+  id_obligacion_det integer,
+  id_centro_costo integer,
+  id_partida integer,
+  centro_costo varchar,
+  nombre_partida varchar,
+  monto_anterior numeric,
+  nuevo_monto numeric,
+  monto_operacion numeric,
+  estado varchar,
+  descripcion varchar
+) AS
 $body$
 declare
     v_nombre_funcion varchar = 'ads.f_clasificar_adenda_det';
@@ -99,6 +97,12 @@ exception
         v_resp = pxp.f_agrega_clave(v_resp, 'procedimiento', v_nombre_funcion);
         raise exception '%',v_resp;
 end ;
-$body$;
-end;
-alter function ads.f_clasificar_adenda_det() owner to postgres;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100 ROWS 1000;
+
+ALTER FUNCTION ads.f_clasificar_adenda_det ()
+  OWNER TO postgres;

@@ -140,7 +140,7 @@ class MODAdendaDet extends MODbase
 
         $this->setCount(false);
 
-        $this->setParametro('id_adenda', 'id_adenda', 'int4');
+        $this->setParametro('id_proceso_wf', 'id_proceso_wf', 'int4');
 
         $this->captura('centro_costos', 'varchar');
         $this->captura('nombre_partida', 'varchar');
@@ -162,7 +162,7 @@ class MODAdendaDet extends MODbase
         $this->transaccion = 'ADS_RPT_PRESU';
         $this->tipo_procedimiento = 'SEL';
 
-        $this->setParametro('id_adenda', 'id_adenda', 'int4');
+        $this->setParametro('id_proceso_wf', 'id_proceso_wf', 'int4');
 
         $this->captura('techo', 'varchar');
         $this->captura('centro_costo', 'varchar');

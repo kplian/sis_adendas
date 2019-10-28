@@ -35,8 +35,7 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     private function datosCabecera($adenda)
     {
-        $fecha_modificacion = DateTime::createFromFormat("Y-m-d", explode(' ', $adenda[0]['fecha_mod'])[0]);
-        $formatted_date = $fecha_modificacion->format('j.n.Y');
+        $fecha_modificacion = DateTime::createFromFormat("Y-m-d", $adenda[0]['fecha_mod']);
 
         $content = '<table>';
         $content .= '<tr>';
@@ -59,13 +58,13 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $content .= '</tr>';
         $content .= '<tr>';
         $content .= '<td align="center">';
-        $content .= $fecha_modificacion->format('d');
+//        $content .= $fecha_modificacion->format('d');
         $content .= '</td>';
         $content .= '<td align="center">';
-        $content .= $fecha_modificacion->format('m');
+//        $content .= $fecha_modificacion->format('m');
         $content .= '</td>';
         $content .= '<td align="center">';
-        $content .= $fecha_modificacion->format('Y');
+//        $content .= $fecha_modificacion->format('Y');
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '</table>';

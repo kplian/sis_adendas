@@ -1,6 +1,8 @@
-create or replace function ads.f_aprobar_adenda(p_id_adenda integer, p_id_usuario integer) returns character varying
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_aprobar_adenda (
+  p_id_adenda integer,
+  p_id_usuario integer
+)
+RETURNS varchar AS
 $body$
 declare
     v_nombre_function varchar='ads.f_aprobar_adenda';
@@ -79,6 +81,12 @@ exception
         v_resp = pxp.f_agrega_clave(v_resp, 'procedimiento', v_nombre_function);
         raise exception '%',v_resp;
 end;
-$body$;
-end;
-alter function ads.f_aprobar_adenda(integer, integer) owner to postgres;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
+
+ALTER FUNCTION ads.f_aprobar_adenda (p_id_adenda integer, p_id_usuario integer)
+  OWNER TO postgres;

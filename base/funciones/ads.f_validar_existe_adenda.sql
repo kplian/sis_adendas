@@ -1,6 +1,7 @@
-create or replace function ads.f_validar_existe_adenda(p_id_obligacion_pago integer) returns character varying
-    language plpgsql
-as
+CREATE OR REPLACE FUNCTION ads.f_validar_existe_adenda (
+  p_id_obligacion_pago integer
+)
+RETURNS varchar AS
 $body$
 declare
     v_resp        varchar;
@@ -30,7 +31,12 @@ exception
         raise exception '%',v_resp;
 
 end;
-$body$;
+$body$
+LANGUAGE 'plpgsql'
+VOLATILE
+CALLED ON NULL INPUT
+SECURITY INVOKER
+COST 100;
 
-alter function ads.f_validar_existe_adenda(integer) owner to postgres;
-
+ALTER FUNCTION ads.f_validar_existe_adenda (p_id_obligacion_pago integer)
+  OWNER TO postgres;

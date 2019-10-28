@@ -6,7 +6,6 @@ declare
     v_nombre_funcion                  varchar;
     v_resp                            varchar;
     v_monto_anticipo                  numeric;
-    v_monto_desc_anticipo             numeric;
     v_importe_total                   numeric;
     v_num_tramite                     varchar;
     v_monto_factor_prorrateo_anticipo numeric;
@@ -19,12 +18,10 @@ begin
     from tes.tobligacion_pago obp
     where obp.id_obligacion_pago = p_id_obligacion_pago;
 
-    select sum(monto_anticipo)      as monto_anticipo,
-           sum(monto_desc_anticipo) as monto_desc_anticipo
-    into v_monto_anticipo, v_monto_desc_anticipo
+    select sum(monto_anticipo) as monto_anticipo
+    into v_monto_anticipo
     from pre.tpartida_ejecucion pe
-    where pe.nro_tramite = v_num_tramite
-    group by id_partida, id_presupuesto;
+    where pe.nro_tramite = v_num_tramite;
 
     select monto_pago_mo into v_monto_detalle from tes.tobligacion_det where id_obligacion_det = p_id_obligacion_det;
 
