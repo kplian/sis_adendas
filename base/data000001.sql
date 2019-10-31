@@ -20,3 +20,6 @@ select wf.f_import_ttipo_documento ('insert','DOCADOC','SEG-AD','Adenda - Orden 
 select wf.f_import_testructura_estado ('insert','borrador','pendiente','SEG-AD',1,'');
 select wf.f_import_testructura_estado ('insert','pendiente','aprobado','SEG-AD',1,'');
 /********************************************F-DAT-VAN-ADS-0-27/10/2019**********************************************/
+/********************************************I-DAT-VAN-ADS-1-31/10/2019********************************************/
+select pxp.f_insert_tgui ('Obligaciones de Pago', 'Obligaciones de Pago', 'ADOP', 'si', 1, 'sis_adendas/vista/obligacion_pago/ObligacionPagoAd.php', 2, '', 'ObligacionPagoAd', 'ADS');
+/********************************************F-DAT-VAN-ADS-1-31/10/2019********************************************/
