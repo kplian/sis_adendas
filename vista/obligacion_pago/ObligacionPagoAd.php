@@ -19,18 +19,18 @@ header("content-type: text/javascript; charset=UTF-8");
         requireclase: 'Phx.vista.ObligacionPagoAdq',
         title: 'Obligacion de Pago(Adquisiciones)',
         nombreVista: 'obligacionPagoAdq',
-        tabsouth:[
+        tabsouth: [
             {
-                url:'../../../sis_adendas/vista/obligacion_det/ObligacionDetAd.php',
-                title:'Detalle',
-                height:'50%',
-                cls:'ObligacionDetAd'
+                url: '../../../sis_adendas/vista/obligacion_det/ObligacionDetAd.php',
+                title: 'Detalle',
+                height: '50%',
+                cls: 'ObligacionDetAd'
             },
             {
-                url:'../../../sis_adendas/vista/plan_pago/PlanPagoAd.php',
-                title:'Plan de Pagos',
-                height:'50%',
-                cls:'PlanPagoAd'
+                url: '../../../sis_adendas/vista/plan_pago/PlanPagoAd.php',
+                title: 'Plan de Pagos',
+                height: '50%',
+                cls: 'PlanPagoAd'
             }
 
         ],
@@ -46,6 +46,16 @@ header("content-type: text/javascript; charset=UTF-8");
             animCollapse: true,
             collapsible: true
         },
+        constructor: function (config) {
+            this.maestro = config;
+            Phx.vista.ObligacionPagoAd.superclass.constructor.call(this, config);
+            this.init();
+
+            this.sm.grid.getSelectionModel().on('rowselect', function (sm, rowIdx, r) {
+                self.actualizarAdendas()
+            });
+        },
+
         preparaMenu: function (n) {
             var data = this.getSelectedData();
             var tb = this.tbar;
@@ -73,26 +83,30 @@ header("content-type: text/javascript; charset=UTF-8");
             this.getBoton('btnChequeoDocumentosWf').disable();
             this.getBoton('btnObs').disable();
             this.menuAdq.disable();
-            if (data['estado'] == 'borrador') {
+            if (data['estado'] === 'borrador') {
                 this.disableTabPagos();
                 this.disableTabConsulta();
             } else {
-                if (data['estado'] == 'registrado') {
+                if (data['estado'] === 'registrado') {
                     this.enableTabPagos();
                 }
 
-                if (data['estado'] == 'en_pago') {
+                if (data['estado'] === 'en_pago') {
                     this.enableTabPagos();
                 }
 
-                if (data['estado'] == 'anulado') {
+                if (data['estado'] === 'anulado') {
                     this.disableTabPagos();
                     this.enableTabConsulta();
                 }
-                if (data['estado'] == 'finalizado') {
+                if (data['estado'] === 'finalizado') {
                     this.enableTabConsulta();
                 }
-             }
+            }
+        },
+        actualizarAdendas: function () {
+            var contenedor = Phx.CP.getPagina(this.idContenedor + '-xeast');
+            contenedor.actualizarTabla(this.getSelectedData());
         }
     };
 </script>
