@@ -47,6 +47,7 @@ header("content-type: text/javascript; charset=UTF-8");
             collapsible: true
         },
         constructor: function (config) {
+            var self = this;
             this.maestro = config;
             Phx.vista.ObligacionPagoAd.superclass.constructor.call(this, config);
             this.init();
