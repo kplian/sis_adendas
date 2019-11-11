@@ -97,3 +97,10 @@ select pxp.f_insert_testructura_gui ('ADOP', 'ADS');
 /********************************************I-DEP-VAN-ADS-2-04/11/2019*************************************/
 alter table tes.tobligacion_pago add bloqueado integer default 0;
 /********************************************F-DEP-VAN-ADS-2-04/11/2019*************************************/
+/********************************************I-DEP-VAN-ADS-3-08/11/2019*************************************/
+CREATE TRIGGER trig_verificar_bloqueado
+    BEFORE UPDATE OR DELETE
+    ON tes.tprorrateo
+    FOR EACH ROW
+EXECUTE PROCEDURE ads.f_trig_verificar_bloqueado();
+/********************************************F-DEP-VAN-ADS-3-08/11/2019*************************************/
