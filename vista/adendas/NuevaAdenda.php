@@ -369,7 +369,7 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.CP.loadingHide();
             Phx.CP.getPagina(this.idContenedorPadre).reload();
             Phx.CP.getPagina(Phx.CP.getPagina(this.idContenedorPadre).idContenedorPadre).reload();
-            if (this.idContenedorPadre !== 'docs-OBPAGOA-xeast')
+            if (this.idContenedorPadre !== 'docs-ADOP-xeast')
                 Phx.CP.getPagina(this.idContenedorPadre).close();
             adendas.dialog.info(data.ROOT.detalle.mensaje);
             this.panel.close();
