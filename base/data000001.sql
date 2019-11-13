@@ -23,3 +23,6 @@ select wf.f_import_testructura_estado ('insert','pendiente','aprobado','SEG-AD',
 /********************************************I-DAT-VAN-ADS-1-31/10/2019********************************************/
 select pxp.f_insert_tgui ('Obligaciones de Pago', 'Obligaciones de Pago', 'ADOP', 'si', 1, 'sis_adendas/vista/obligacion_pago/ObligacionPagoAd.php', 2, '', 'ObligacionPagoAd', 'ADS');
 /********************************************F-DAT-VAN-ADS-1-31/10/2019********************************************/
+/********************************************I-DAT-VAN-ADS-2-13/11/2019********************************************/
+select param.f_import_tdocumento ('insert','C_ADS','Correlativo adendas','ADS','depto','periodo','',NULL);
+/********************************************F-DAT-VAN-ADS-2-13/11/2019********************************************/
