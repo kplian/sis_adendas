@@ -286,6 +286,12 @@ header("content-type: text/javascript; charset=UTF-8");
                 title: 'Detalle',
                 height: '50%',
                 cls: 'AdendaDet'
+            },
+            {
+                url: '../../../sis_adendas/vista/plan_pago/PlanPagoAd.php',
+                title: 'Plan de Pagos',
+                height: '50%',
+                cls: 'PlanPagoAd'
             }
         ],
         constructor: function (config) {
