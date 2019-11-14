@@ -51,7 +51,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.maestro = config;
             Phx.vista.ObligacionPagoAd.superclass.constructor.call(this, config);
             this.init();
-
+            this.hideToolbar();
             this.sm.grid.getSelectionModel().on('rowselect', function (sm, rowIdx, r) {
                 self.actualizarAdendas()
             });
@@ -61,29 +61,10 @@ header("content-type: text/javascript; charset=UTF-8");
             var data = this.getSelectedData();
             var tb = this.tbar;
             Phx.vista.ObligacionPago.superclass.preparaMenu.call(this, n);
-
-            if (this.getBoton('new'))
-                this.getBoton('new').disable();
-            if (this.getBoton('edit'))
-                this.getBoton('edit').disable();
-            if (this.getBoton('del'))
-                this.getBoton('del').disable();
-
-            this.getBoton('fin_registro').disable();
-            this.getBoton('ant_estado').disable();
-            this.getBoton('reporte_com_ejec_pag').disable();
-            this.getBoton('reporte_plan_pago').disable();
-            this.getBoton('ajustes').disable();
-            this.getBoton('est_anticipo').disable();
-            this.getBoton('ant_estado').disable();
-            this.getBoton('extenderop').disable();
-            this.getBoton('chkpresupuesto').disable();
-            this.getBoton('btnVerifPresup').disable();
-            this.getBoton('anti_ret').disable();
-            this.getBoton('diagrama_gantt').disable();
-            this.getBoton('btnChequeoDocumentosWf').disable();
-            this.getBoton('btnObs').disable();
-            this.menuAdq.disable();
+            this.hideToolbar();
+            this.getBoton('diagrama_gantt').enable();
+            this.getBoton('btnChequeoDocumentosWf').enable();
+            this.getBoton('btnObs').enable();
             if (data['estado'] === 'borrador') {
                 this.disableTabPagos();
                 this.disableTabConsulta();
@@ -104,6 +85,26 @@ header("content-type: text/javascript; charset=UTF-8");
                     this.enableTabConsulta();
                 }
             }
+        },
+        hideToolbar: function () {
+            if (this.getBoton('new'))
+                this.getBoton('new').hide();
+            if (this.getBoton('edit'))
+                this.getBoton('edit').hide();
+            if (this.getBoton('del'))
+                this.getBoton('del').hide();
+
+            this.getBoton('fin_registro').hide();
+            this.getBoton('ant_estado').hide();
+            this.getBoton('reporte_com_ejec_pag').hide();
+            this.getBoton('reporte_plan_pago').hide();
+            this.getBoton('ajustes').hide();
+            this.getBoton('est_anticipo').hide();
+            this.getBoton('ant_estado').hide();
+            this.getBoton('extenderop').hide();
+            this.getBoton('chkpresupuesto').hide();
+            this.getBoton('btnVerifPresup').hide();
+            this.menuAdq.hide();
         },
         actualizarAdendas: function () {
             var contenedor = Phx.CP.getPagina(this.idContenedor + '-xeast');

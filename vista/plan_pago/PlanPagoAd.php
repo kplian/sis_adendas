@@ -20,21 +20,31 @@ header("content-type: text/javascript; charset=UTF-8");
         requireclase:'Phx.vista.PlanPagoConsulta',
         title:'Consulta de Planes de Pago',
         nombreVista: 'PlanPagoAd',
-
+        constructor: function (config) {
+            var self = this;
+            this.maestro = config;
+            Phx.vista.PlanPagoAd.superclass.constructor.call(this, config);
+            this.init();
+            this.hideToolBar();
+        },
         preparaMenu:function(n){
             var data = this.getSelectedData();
             var tb =this.tbar;
             Phx.vista.PlanPagoAd.superclass.preparaMenu.call(this,n);
-            this.getBoton('ant_estado').disable();
-            this.getBoton('sig_estado').disable();
-            this.getBoton('SincPresu').disable();
-            this.getBoton('SolPlanPago').disable();
-            this.getBoton('ini_estado').disable();
-            this.getBoton('ant_estado').disable();
-            this.getBoton('sig_estado').disable();
-            this.getBoton('btnChequeoDocumentosWf').disable();
-            this.getBoton('btnPagoRel').disable();
-            this.getBoton('btnObs').disable();
+            this.hideToolBar();
+            this.getBoton('btnChequeoDocumentosWf').enable();
+            this.getBoton('btnObs').enable();
+
         },
+        hideToolBar: function () {
+            this.getBoton('ant_estado').hide();
+            this.getBoton('sig_estado').hide();
+            this.getBoton('SincPresu').hide();
+            this.getBoton('SolPlanPago').hide();
+            this.getBoton('ini_estado').hide();
+            this.getBoton('ant_estado').hide();
+            this.getBoton('sig_estado').hide();
+            this.getBoton('btnPagoRel').hide();
+        }
     };
 </script>
