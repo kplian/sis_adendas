@@ -104,3 +104,7 @@ CREATE TRIGGER trig_verificar_bloqueado
     FOR EACH ROW
 EXECUTE PROCEDURE ads.f_trig_verificar_bloqueado();
 /********************************************F-DEP-VAN-ADS-3-08/11/2019*************************************/
+/********************************************I-DEP-VAN-ADS-4-14/11/2019*************************************/
+select pxp.f_insert_testructura_gui ('ADPARAM', 'ADS');
+select pxp.f_insert_testructura_gui ('ADTIPOS', 'ADPARAM');
+/********************************************F-DEP-VAN-ADS-4-14/11/2019*************************************/

@@ -110,3 +110,15 @@ ALTER TABLE ads.tadenda_det
   OWNER TO postgres;
 
 /***********************************F-SCP-VAN-ADS-0-17/10/2019****************************************/
+/***********************************I-SCP-VAN-ADS-1-14/11/2019****************************************/
+CREATE TABLE ads.ttipos (
+  id_tipo SERIAL,
+  codigo VARCHAR,
+  descripcion VARCHAR,
+  CONSTRAINT ttipo_pk PRIMARY KEY(id_tipo)
+) INHERITS (pxp.tbase)
+WITH (oids = false);
+
+ALTER TABLE ads.ttipos
+  OWNER TO postgres;
+/***********************************F-SCP-VAN-ADS-1-14/11/2019****************************************/

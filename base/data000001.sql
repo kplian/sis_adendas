@@ -26,3 +26,17 @@ select pxp.f_insert_tgui ('Obligaciones de Pago', 'Obligaciones de Pago', 'ADOP'
 /********************************************I-DAT-VAN-ADS-2-13/11/2019********************************************/
 select param.f_import_tdocumento ('insert','C_ADS','Correlativo adendas','ADS','depto','periodo','',NULL);
 /********************************************F-DAT-VAN-ADS-2-13/11/2019********************************************/
+/********************************************I-DAT-VAN-ADS-3-14/11/2019********************************************/
+select pxp.f_insert_tgui('Parámetros', 'Parámetros', 'ADPARAM', 'si', 1, '', 2, '', '', 'ADS');
+select pxp.f_insert_tgui('Tipos', 'Tipos de Modificatorios', 'ADTIPOS', 'si', 1, 'sis_adendas/vista/tipos/Tipos.php', 3,
+                         '', 'Tipos', 'ADS');
+insert into ads.ttipos(id_usuario_reg, id_usuario_mod, fecha_reg, fecha_mod, estado_reg, id_usuario_ai, usuario_ai,
+                       codigo, descripcion)
+values (1, 1, now(), null, 'activo', 1, NULL, 'AD', 'Adenda');
+insert into ads.ttipos(id_usuario_reg, id_usuario_mod, fecha_reg, fecha_mod, estado_reg, id_usuario_ai, usuario_ai,
+                       codigo, descripcion)
+values (1, 1, now(), null, 'activo', 1, NULL, 'ADCORRECCION', 'Corrección');
+insert into ads.ttipos(id_usuario_reg, id_usuario_mod, fecha_reg, fecha_mod, estado_reg, id_usuario_ai, usuario_ai,
+                       codigo, descripcion)
+values (1, 1, now(), null, 'activo', 1, NULL, 'ADORDEN', 'Orden Modificatorio');
+/********************************************F-DAT-VAN-ADS-3-14/11/2019********************************************/
