@@ -40,6 +40,8 @@ class MODAdenda extends MODbase
         $this->captura('tipo', 'varchar');
         $this->captura('numero_adenda', 'varchar');
         $this->captura('id_contrato_adenda', 'int4');
+        $this->captura('id_tipo', 'int4');
+        $this->captura('descripcion', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -63,6 +65,7 @@ class MODAdenda extends MODbase
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
+        $this->setParametro('id_tipo', 'id_tipo', 'int4');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -82,7 +85,7 @@ class MODAdenda extends MODbase
         $this->setParametro('nueva_fecha_fin', 'nueva_fecha_fin', 'date');
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
-        $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
+        $this->setParametro('id_tipo', 'id_tipo', 'int4');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -125,6 +128,7 @@ class MODAdenda extends MODbase
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
+        $this->setParametro('id_tipo', 'id_tipo', 'int4');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();

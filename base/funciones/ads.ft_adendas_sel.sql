@@ -48,8 +48,11 @@ BEGIN
                            fun.desc_funcionario1,
                            sol.tipo,
                            vcon.numero as numero_adenda,
-                           ad.id_contrato_adenda
+                           ad.id_contrato_adenda,
+                           t.id_tipo,
+                           t.descripcion
                     from ads.tadendas ad
+                             join ads.ttipos t on t.id_tipo = ad.id_tipo
                              left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
                              join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
                              left join segu.tusuario usu2 on usu2.id_usuario = obpg.id_usuario_mod
@@ -79,6 +82,7 @@ BEGIN
 
             v_consulta := 'select count(id_adenda)
                                             from ads.tadendas ad
+                                            join ads.ttipos t on t.id_tipo = ad.id_tipo
                                             left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
                                             inner join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
                                             left join segu.tusuario usu2 on usu2.id_usuario = obpg.id_usuario_mod

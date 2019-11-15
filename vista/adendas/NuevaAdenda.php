@@ -96,6 +96,55 @@ header("content-type: text/javascript; charset=UTF-8");
             },
             {
                 config: {
+                    name: 'id_tipo',
+                    fieldLabel: 'Tipo',
+                    emptyText: 'Tipo..',
+                    typeAhead: true,
+                    lazyRender: true,
+                    allowBlank: false,
+                    mode: 'remote',
+                    gwidth: 180,
+                    anchor: '100%',
+                    store: new Ext.data.JsonStore({
+                        url: '../../sis_adendas/control/Tipos/listar',
+                        id: 'id_tipo',
+                        root: 'datos',
+                        sortInfo: {
+                            field: 'id_tipo',
+                            direction: 'ASC'
+                        },
+                        totalProperty: 'total',
+                        fields: ['id_tipo', 'codigo', 'descripcion'],
+                        // turn on remote sorting
+                        remoteSort: true,
+                        baseParams: {par_filtro: 'tipos.id_tipo#tipos.codigo#tipos.descripcion'}
+                    }),
+                    valueField: 'id_tipo',
+                    displayField: 'descripcion',
+                    gdisplayField: 'descripcion',
+                    hiddenName: 'id_tipo',
+                    forceSelection: true,
+                    typeAhead: false,
+                    triggerAction: 'all',
+                    lazyRender: true,
+                    mode: 'remote',
+                    pageSize: 10,
+                    queryDelay: 1000,
+                    resizable: true,
+                    minChars: 1,
+                    renderer: function (value, p, record) {
+                        return String.format('{0}', record.data['descripcion']);
+                    }
+                },
+                type: 'ComboBox',
+                id_grupo: 2,
+                filters: {pfiltro: 'tipos.descripcion', type: 'string'},
+                grid: true,
+                form: true,
+                bottom_filter: true
+            },
+            {
+                config: {
                     name: 'fecha_fin',
                     fieldLabel: 'Fecha Estimada Fin',
                     allowBlank: true,

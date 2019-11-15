@@ -98,7 +98,8 @@ BEGIN
                                       total_pago,
                                       nueva_fecha_fin,
                                       observacion,
-                                      id_contrato_adenda)
+                                      id_contrato_adenda,
+                                      id_tipo)
             VALUES (p_id_usuario,
                     NULL,
                     NOW(),
@@ -116,7 +117,8 @@ BEGIN
                     v_total_pago,
                     v_parametros.nueva_fecha_fin,
                     v_parametros.observacion,
-                    v_parametros.id_contrato_adenda)
+                    v_parametros.id_contrato_adenda,
+                    v_parametros.id_tipo)
             RETURNING id_adenda into v_id_adenda;
 
             INSERT INTO ads.tadenda_det(id_usuario_reg,
@@ -221,8 +223,8 @@ BEGIN
                 fecha_mod          = now(),
                 id_usuario_mod     = p_id_usuario,
                 nueva_fecha_fin    = v_parametros.nueva_fecha_fin,
-                id_contrato_adenda = v_parametros.id_contrato_adenda,
-                id_funcionario     = v_parametros.id_funcionario
+                id_funcionario     = v_parametros.id_funcionario,
+                id_tipo            = v_parametros.id_tipo
             where id_adenda = v_parametros.id_adenda;
 
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Adenda modificada');

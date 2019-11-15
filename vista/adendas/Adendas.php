@@ -86,6 +86,55 @@ header("content-type: text/javascript; charset=UTF-8");
             },
             {
                 config: {
+                    name: 'id_tipo',
+                    fieldLabel: 'Tipo',
+                    emptyText: 'Tipo..',
+                    typeAhead: true,
+                    lazyRender: true,
+                    allowBlank: false,
+                    mode: 'remote',
+                    gwidth: 180,
+                    anchor: '100%',
+                    store: new Ext.data.JsonStore({
+                        url: '../../sis_adendas/control/Tipos/listar',
+                        id: 'id_tipo',
+                        root: 'datos',
+                        sortInfo: {
+                            field: 'id_tipo',
+                            direction: 'ASC'
+                        },
+                        totalProperty: 'total',
+                        fields: ['id_tipo', 'codigo', 'descripcion'],
+                        // turn on remote sorting
+                        remoteSort: true,
+                        baseParams: {par_filtro: 'tipos.id_tipo#tipos.codigo#tipos.descripcion'}
+                    }),
+                    valueField: 'id_tipo',
+                    displayField: 'descripcion',
+                    gdisplayField: 'descripcion',
+                    hiddenName: 'id_tipo',
+                    forceSelection: true,
+                    typeAhead: false,
+                    triggerAction: 'all',
+                    lazyRender: true,
+                    mode: 'remote',
+                    pageSize: 10,
+                    queryDelay: 1000,
+                    resizable: true,
+                    minChars: 1,
+                    renderer: function (value, p, record) {
+                        return String.format('{0}', record.data['descripcion']);
+                    }
+                },
+                type: 'ComboBox',
+                id_grupo: 2,
+                filters: {pfiltro: 't.descripcion', type: 'string'},
+                grid: true,
+                form: true,
+                bottom_filter: true
+            },
+            {
+                config: {
                     name: 'id_contrato_adenda',
                     fieldLabel: 'N&uacute;mero Adenda',
                     allowBlank: false,
@@ -265,7 +314,9 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'desc_funcionario1', type: 'string'},
             {name: 'tipo', type: 'string'},
             {name: 'numero_adenda', type: 'string'},
-            {name: 'id_contrato_adenda', type: 'numeric'}
+            {name: 'id_contrato_adenda', type: 'numeric'},
+            {name: 'id_tipo', type: 'numeric'},
+            {name: 'descripcion', type: 'string'}
         ],
         arrayDefaultColumHidden: [],
         rowExpander: new Ext.ux.grid.RowExpander({
@@ -510,16 +561,6 @@ header("content-type: text/javascript; charset=UTF-8");
 
                 }, scope : this
             });
-            // this.Cmp.id_contrato_adenda.store.baseParams.query = data.id_contrato_adenda;
-            // this.Cmp.id_contrato_adenda.store.load({params:{start:0,limit:this.tam_pag},
-            //     callback : function (r) {
-            //         if (r.length > 0 ) {
-            //
-            //             this.Cmp.id_contrato_adenda.setValue(r[0].data.id_contrato);
-            //         }
-            //
-            //     }, scope : this
-            // });
         },
         refreshGrid: function () {
             this.reload()
