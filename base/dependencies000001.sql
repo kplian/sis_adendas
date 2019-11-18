@@ -113,3 +113,9 @@ alter table ads.tadendas
     add constraint tadendas_id_tipo_fk
         foreign key (id_tipo) references ads.ttipos;
 /********************************************F-DEP-VAN-ADS-5-15/11/2019*************************************/
+/********************************************I-DEP-VAN-ADS-6-18/11/2019*************************************/
+select pxp.f_insert_testructura_gui ('ADPRO', 'ADS');
+select pxp.f_insert_testructura_gui ('ADCON', 'ADS');
+select pxp.f_insert_testructura_gui ('AD', 'ADPRO');
+select pxp.f_insert_testructura_gui ('ADOP', 'ADCON');
+/********************************************F-DEP-VAN-ADS-6-18/11/2019*************************************/

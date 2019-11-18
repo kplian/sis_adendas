@@ -40,3 +40,7 @@ insert into ads.ttipos(id_usuario_reg, id_usuario_mod, fecha_reg, fecha_mod, est
                        codigo, descripcion)
 values (1, 1, now(), null, 'activo', 1, NULL, 'ADORDEN', 'Orden Modificatorio');
 /********************************************F-DAT-VAN-ADS-3-14/11/2019********************************************/
+/********************************************I-DAT-VAN-ADS-4-18/11/2019********************************************/
+select pxp.f_insert_tgui ('Procesos', 'Procesos', 'ADPRO', 'si', 1, '', 2, '', '', 'ADS');
+select pxp.f_insert_tgui ('Consultas', 'Consultas', 'ADCON', 'si', 1, '', 2, '', '', 'ADS');
+/********************************************F-DAT-VAN-ADS-4-18/11/2019********************************************/
