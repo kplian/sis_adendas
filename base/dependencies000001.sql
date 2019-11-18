@@ -1,6 +1,5 @@
 /********************************************I-DEP-VAN-ADS-0-17/01/2019*************************************/
 select pxp.f_insert_testructura_gui ('ADS', 'SISTEMA');
-select pxp.f_insert_testructura_gui ('AD', 'ADS');
 
 create trigger trig_adenda_det_total_pago
 	after insert or update or delete
@@ -91,9 +90,6 @@ select id_adenda,
 from ads.tadendas ad
 where ad.estado_reg::text = 'activo'::text;
 /********************************************F-DEP-VAN-ADS-0-17/10/2019*************************************/
-/********************************************I-DEP-VAN-ADS-1-31/10/2019*************************************/
-select pxp.f_insert_testructura_gui ('ADOP', 'ADS');
-/********************************************F-DEP-VAN-ADS-1-31/10/2019*************************************/
 /********************************************I-DEP-VAN-ADS-2-04/11/2019*************************************/
 alter table tes.tobligacion_pago add bloqueado integer default 0;
 /********************************************F-DEP-VAN-ADS-2-04/11/2019*************************************/
