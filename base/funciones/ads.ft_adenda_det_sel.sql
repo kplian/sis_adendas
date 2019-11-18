@@ -28,7 +28,7 @@ BEGIN
     v_nombre_funcion = 'tes.ft_adenda_det_sel';
     v_parametros = pxp.f_get_record(p_tabla);
 
-    IF (p_transaccion = 'ADS_ADENDA_DET_SEL')
+    IF (p_transaccion = 'ADS_AD_DET_SEL')
     THEN
 
         BEGIN
@@ -80,7 +80,7 @@ BEGIN
 
         END;
 
-    ELSIF (p_transaccion = 'ADS_ADENDA_DET_CONT')
+    ELSIF (p_transaccion = 'ADS_AD_DET_CONT')
     THEN
 
         BEGIN

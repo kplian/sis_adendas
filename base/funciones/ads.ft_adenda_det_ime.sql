@@ -38,7 +38,7 @@ BEGIN
     v_nombre_funcion = 'ads.ft_adenda_det_ime';
     v_parametros = pxp.f_get_record(p_tabla);
 
-    if (p_transaccion = 'ADS_ADENDA_DET_INS') then
+    if (p_transaccion = 'ADS_AD_DET_INS') then
 
         begin
 
@@ -155,7 +155,7 @@ BEGIN
             return v_resp;
 
         end;
-    elseif (p_transaccion = 'ADS_ADENDA_DET_MOD') then
+    elseif (p_transaccion = 'ADS_AD_DET_MOD') then
         declare
             v_monto_comprometer    numeric;
             v_monto_descomprometer numeric;
@@ -254,7 +254,7 @@ BEGIN
 
         end;
 
-    elsif (p_transaccion = 'ADS_ADENDA_DET_ELI') then
+    elsif (p_transaccion = 'ADS_AD_DET_ELI') then
 
         begin
             delete

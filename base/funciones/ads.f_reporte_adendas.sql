@@ -17,18 +17,18 @@ begin
 
     select id_adenda into v_id_adenda from ads.tadendas where id_proceso_wf = v_parametros.id_proceso_wf;
 
-    if p_transaccion = 'ADS_RPT_DETALLE' then
+    if (p_transaccion = 'ADS_RPT_DETALLE') then
         v_consulta = 'select adt.centro_costos::varchar, adt.nombre_partida::varchar, adt.precio_total::numeric
                         from ads.detalle_adenda adt
                         where adt.id_adenda = ' || v_id_adenda;
         return v_consulta;
-    elsif p_transaccion = 'ADS_RPT_PRESU' then
+    elsif (p_transaccion = 'ADS_RPT_PRESU') then
         v_consulta = 'select centro_costo, nombre_partida, SUM(monto_anterior) monto_anterior ,sum(monto_operacion) monto_operacion, disponible, estado
                         from ads.f_verificar_presupuesto(' || v_id_adenda || ')
                             GROUP BY centro_costo, nombre_partida, disponible,estado
                             HAVING estado is not null';
         return v_consulta;
-    elsif p_transaccion = 'ADS_RPT_AD' then
+    elsif (p_transaccion = 'ADS_RPT_AD') then
         v_consulta = 'select
                ad.numero,
                ad.num_tramite,
@@ -57,7 +57,7 @@ begin
                 left join wf.testado_wf wfe on wfe.id_estado_wf = ad.id_estado_wf
                      WHERE ad.id_adenda=' || v_id_adenda;
         return v_consulta;
-    elsif p_transaccion = 'ADS_RPT_AD_DET' then
+    elsif (p_transaccion = 'ADS_RPT_AD_DET') then
         v_consulta = ' ';
         return v_consulta;
     end if;

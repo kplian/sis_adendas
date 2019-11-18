@@ -53,7 +53,7 @@ BEGIN
     v_nombre_funcion = 'ads.ft_adendas_ime';
     v_parametros = pxp.f_get_record(p_tabla);
 
-    if (p_transaccion = 'ADS_ADENDA_CLONAR') then
+    if (p_transaccion = 'ADS_AD_CLONAR') then
 
         begin
 
@@ -213,7 +213,7 @@ BEGIN
 
         end;
 
-    elsif (p_transaccion = 'ADS_ADENDA_MOD') then
+    elsif (p_transaccion = 'ADS_AD_MOD') then
 
         begin
 
@@ -234,7 +234,7 @@ BEGIN
 
         end;
 
-    elsif (p_transaccion = 'ADS_ADENDA_ELI') then
+    elsif (p_transaccion = 'ADS_AD_ELI') then
 
         begin
 
@@ -306,7 +306,7 @@ BEGIN
 
             return v_resp;
         end;
-    elsif (p_transaccion = 'ADS_ADENDA_SiGEST') then
+    elsif (p_transaccion = 'ADS_AD_SiGEST') then
         begin
 
             select ad.id_proceso_wf,

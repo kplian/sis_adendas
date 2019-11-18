@@ -18,7 +18,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_sel';
-        $this->transaccion = 'ADS_ADENDA_SEL';
+        $this->transaccion = 'ADS_AD_SEL';
         $this->tipo_procedimiento = 'SEL';
 
         $this->captura('id_adenda', 'int4');
@@ -53,7 +53,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_ime';
-        $this->transaccion = 'ADS_ADENDA_INS';
+        $this->transaccion = 'ADS_AD_INS';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
@@ -77,7 +77,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_ime';
-        $this->transaccion = 'ADS_ADENDA_MOD';
+        $this->transaccion = 'ADS_AD_MOD';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
@@ -97,7 +97,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_ime';
-        $this->transaccion = 'ADS_ADENDA_ELI';
+        $this->transaccion = 'ADS_AD_ELI';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_adenda', 'id_adenda', 'int4');
@@ -120,7 +120,7 @@ class MODAdenda extends MODbase
     function clonarObligacion()
     {
         $this->procedimiento = 'ads.ft_adendas_ime';
-        $this->transaccion = 'ADS_ADENDA_CLONAR';
+        $this->transaccion = 'ADS_AD_CLONAR';
         $this->tipo_procedimiento = 'IME';
         $this->setParametro('id_obligacion_pago', 'id_obligacion_pago', 'int4');
         $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
@@ -140,7 +140,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_ime';
-        $this->transaccion = 'ADS_ADENDA_SiGEST';
+        $this->transaccion = 'ADS_AD_SiGEST';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_adenda', 'id_adenda', 'int4');
@@ -163,7 +163,7 @@ class MODAdenda extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adendas_sel';
-        $this->transaccion = 'ADS_ADENDA_SEL';
+        $this->transaccion = 'ADS_AD_SEL';
         $this->tipo_procedimiento = 'SEL';
 
         $this->setCount(false);

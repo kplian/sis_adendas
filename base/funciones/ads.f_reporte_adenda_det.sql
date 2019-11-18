@@ -17,14 +17,14 @@ begin
 
     select id_adenda into v_id_adenda from ads.tadendas where id_proceso_wf = v_parametros.id_proceso_wf;
 
-    if p_transaccion = 'ADS_RPT_DETALLE' then
+    if (p_transaccion = 'ADS_RPT_DETALLES') then
 
         v_consulta = 'select centro_costo, nombre_partida, monto_anterior, nuevo_monto, monto_operacion, estado, descripcion
                         from ads.f_clasificar_adenda_det()
                         where id_adenda =' || v_id_adenda;
         return v_consulta;
 
-    elsif p_transaccion = 'ADS_RPT_PRESU' then
+    elsif (p_transaccion = 'ADS_RPT_PRESUS') then
 
         v_consulta =
                     'select techo, centro_costo, nombre_partida, monto_operacion, disponible from ads.f_verificar_presupuesto() where id_adenda = ' ||

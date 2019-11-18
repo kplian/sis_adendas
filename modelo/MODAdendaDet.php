@@ -18,7 +18,7 @@ class MODAdendaDet extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adenda_det_sel';
-        $this->transaccion = 'ADS_ADENDA_DET_SEL';
+        $this->transaccion = 'ADS_AD_DET_SEL';
         $this->tipo_procedimiento = 'SEL';
 
         $this->setParametro('id_adenda', 'id_adenda', 'int4');
@@ -62,7 +62,7 @@ class MODAdendaDet extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adenda_det_ime';
-        $this->transaccion = 'ADS_ADENDA_DET_INS';
+        $this->transaccion = 'ADS_AD_DET_INS';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_adenda', 'id_adenda', 'int4');
@@ -91,7 +91,7 @@ class MODAdendaDet extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adenda_det_ime';
-        $this->transaccion = 'ADS_ADENDA_DET_MOD';
+        $this->transaccion = 'ADS_AD_DET_MOD';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_adenda_det', 'id_adenda_det', 'int4');
@@ -121,7 +121,7 @@ class MODAdendaDet extends MODbase
     {
 
         $this->procedimiento = 'ads.ft_adenda_det_ime';
-        $this->transaccion = 'ADS_ADENDA_DET_ELI';
+        $this->transaccion = 'ADS_AD_DET_ELI';
         $this->tipo_procedimiento = 'IME';
 
         $this->setParametro('id_adenda_det', 'id_adenda_det', 'int4');
@@ -135,7 +135,7 @@ class MODAdendaDet extends MODbase
     function adendaDetalleRpt()
     {
         $this->procedimiento = 'ads.f_reporte_adenda_det';
-        $this->transaccion = 'ADS_RPT_DETALLE';
+        $this->transaccion = 'ADS_RPT_DETALLES';
         $this->tipo_procedimiento = 'SEL';
 
         $this->setCount(false);
@@ -159,7 +159,7 @@ class MODAdendaDet extends MODbase
     function presupuestoDetalleRpt()
     {
         $this->procedimiento = 'ads.f_reporte_adenda_det';
-        $this->transaccion = 'ADS_RPT_PRESU';
+        $this->transaccion = 'ADS_RPT_PRESUS';
         $this->tipo_procedimiento = 'SEL';
 
         $this->setParametro('id_proceso_wf', 'id_proceso_wf', 'int4');

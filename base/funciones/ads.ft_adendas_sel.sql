@@ -27,7 +27,7 @@ BEGIN
 
     v_nombre_funcion = 'ads.ft_adendas_sel';
     v_parametros = pxp.f_get_record(p_tabla);
-    IF (p_transaccion = 'ADS_ADENDA_SEL') THEN
+    IF (p_transaccion = 'ADS_AD_SEL') THEN
 
         BEGIN
             v_consulta := 'select ad.id_adenda,
@@ -76,7 +76,7 @@ BEGIN
             RETURN v_consulta;
 
         END;
-    ELSIF (p_transaccion = 'ADS_ADENDA_CONT') THEN
+    ELSIF (p_transaccion = 'ADS_AD_CONT') THEN
 
         BEGIN
 
