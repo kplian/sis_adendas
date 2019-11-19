@@ -384,9 +384,11 @@ header("content-type: text/javascript; charset=UTF-8");
                         this.getBoton('sig_estado').disable();
                         this.getBoton('edit').disable();
                         this.getBoton('del').disable();
+                        this.getBoton('btnChequeoDocumentosWf').disable();
                         break;
                     }
                     case 'anulado': {
+                        this.getBoton('btnChequeoDocumentosWf').disable();
                         this.getBoton('sig_estado').disable();
                         this.getBoton('ant_estado').disable();
                         this.getBoton('edit').disable();
@@ -395,9 +397,11 @@ header("content-type: text/javascript; charset=UTF-8");
                         break;
                     }
                     case 'pendiente': {
-                        this.getBoton('sig_estado').enable();
-                        this.getBoton('ant_estado').enable();
-                        this.getBoton('edit').enable();
+                        this.getBoton('sig_estado').disable();
+                        this.getBoton('ant_estado').disable();
+                        this.getBoton('edit').disable();
+                        this.getBoton('del').disable();
+                        this.getBoton('btnChequeoDocumentosWf').disable();
                         break;
                     }
                     case 'borrador': {
@@ -407,9 +411,11 @@ header("content-type: text/javascript; charset=UTF-8");
                         break;
                     }
                     default: {
+                        this.getBoton('btnChequeoDocumentosWf').disable();
                         this.getBoton('sig_estado').disable();
-                        this.getBoton('diagrama_gantt').disable();
                         this.getBoton('ant_estado').disable();
+                        this.getBoton('edit').disable();
+                        this.getBoton('del').disable();
                         this.getBoton('btnChequeoDocumentosWf').disable();
                     }
                 }

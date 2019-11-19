@@ -49,7 +49,9 @@ header("content-type: text/javascript; charset=UTF-8");
                     case 'pendiente': {
                         this.getBoton('sig_estado').enable();
                         this.getBoton('ant_estado').enable();
-                        this.getBoton('edit').enable();
+                        this.getBoton('edit').disable();
+                        this.getBoton('new').disable();
+                        this.getBoton('del').disable();
                         break;
                     }
                     case 'borrador': {

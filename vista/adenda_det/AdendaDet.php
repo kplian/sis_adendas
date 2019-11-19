@@ -561,9 +561,9 @@ header("content-type: text/javascript; charset=UTF-8");
                     break;
                 }
                 case 'pendiente': {
-                    this.getBoton('new').enable();
-                    this.getBoton('edit').enable();
-                    if (Boolean(detalle.id_obligacion_det))
+                    this.getBoton('new').disable();
+                    this.getBoton('edit').disable();
+                    if (Boolean(detalle.id_obligacion_det) || adenda.estado === 'pendiente')
                         this.getBoton('del').disable();
                     break;
                 }
@@ -587,8 +587,9 @@ header("content-type: text/javascript; charset=UTF-8");
             var tb = Phx.vista.AdendaDet.superclass.liberaMenu.call(this);
             this.getBoton('edit').disable();
             this.getBoton('del').disable();
-            if (this.maestro.estado == 'anulado' || this.maestro.estado == 'aprobado')
-                this.getBoton('new').disable();
+            this.getBoton('new').disable();
+            if (this.maestro.estado == 'borrador')
+                this.getBoton('new').enable();
             return tb
         },
         onButtonEdit: function () {
