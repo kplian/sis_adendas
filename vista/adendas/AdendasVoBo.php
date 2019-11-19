@@ -33,7 +33,7 @@ header("content-type: text/javascript; charset=UTF-8");
         preparaMenu: function (n) {
             var data = this.getSelectedData();
             var tb = this.tbar;
-            Phx.vista.Adendas.superclass.preparaMenu.call(this, n);
+            Phx.vista.AdendasVoBo.superclass.preparaMenu.call(this, n);
             if (data) {
                 this.getBoton('btnChequeoDocumentosWf').enable();
                 this.getBoton('diagrama_gantt').enable();

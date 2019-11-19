@@ -364,6 +364,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.iniciarEventos();
             this.getBoton('diagrama_gantt').disable();
             this.getBoton('sig_estado').disable();
+            this.getBoton('ant_estado').disable();
         },
         liberaMenu: function () {
             var tb = Phx.vista.Adendas.superclass.liberaMenu.call(this);
@@ -467,7 +468,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 text: 'Anterior',
                 grupo: [0],
                 iconCls: 'batras',
-                disabled: false,
+                disabled: true,
                 handler: this.antEstado,
                 tooltip: '<b>Pasar al Anterior Estado</b>'
             });
@@ -475,7 +476,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 grupo: [0],
                 text: 'Siguiente',
                 iconCls: 'badelante',
-                disabled: false,
+                disabled: true,
                 handler: this.sigEstado,
                 tooltip: '<b>Pasar al Siguiente Estado</b>'
             });
