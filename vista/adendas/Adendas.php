@@ -383,6 +383,15 @@ header("content-type: text/javascript; charset=UTF-8");
                     case 'aprobado': {
                         this.getBoton('sig_estado').disable();
                         this.getBoton('edit').disable();
+                        this.getBoton('del').disable();
+                        break;
+                    }
+                    case 'anulado': {
+                        this.getBoton('sig_estado').disable();
+                        this.getBoton('ant_estado').disable();
+                        this.getBoton('edit').disable();
+                        this.getBoton('del').disable();
+                        this.getBoton('btnChequeoDocumentosWf').disable();
                         break;
                     }
                     case 'pendiente': {
