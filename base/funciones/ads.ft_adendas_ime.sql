@@ -48,6 +48,7 @@ DECLARE
     v_obs                  varchar;
     v_id_estado_actual     integer;
     v_id_tipo_estado       integer;
+    v_registros_adenda     record;
 BEGIN
 
     v_nombre_funcion = 'ads.ft_adendas_ime';
@@ -383,7 +384,62 @@ BEGIN
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'La obligación paso al siguiente estado');
             return v_resp;
         end;
+    elseif (p_transaccion = 'ADS_AD_ANTEST') then
 
+        begin
+            select ad.id_adenda,
+                   ad.id_proceso_wf,
+                   ad.id_estado_wf,
+                   ad.estado
+            into
+                v_registros_adenda
+            from ads.tadendas ad
+                     inner join wf.testado_wf ew on ew.id_estado_wf = ad.id_estado_wf
+            where ad.id_adenda = v_parametros.id_adenda;
+
+            IF v_registros_adenda.estado = 'borrador' or v_registros_adenda.estado = 'aprobado' THEN
+                raise exception 'No es posible retornar a un estado anterior a % ',v_registros_adenda.estado;
+            END IF;
+
+            v_id_proceso_wf = v_registros_adenda.id_proceso_wf;
+
+            select ps_id_tipo_estado,
+                   ps_id_funcionario,
+                   ps_id_depto,
+                   ps_codigo_estado
+            into
+                v_id_tipo_estado,
+                v_id_funcionario,
+                v_id_depto,
+                v_codigo_estado
+            from wf.f_obtener_estado_ant_log_wf(v_parametros.id_estado_wf);
+
+            v_id_estado_actual = wf.f_registra_estado_wf(
+                    v_id_tipo_estado,
+                    v_id_funcionario,
+                    v_parametros.id_estado_wf,
+                    v_id_proceso_wf,
+                    p_id_usuario,
+                    v_parametros._id_usuario_ai,
+                    v_parametros._nombre_usuario_ai,
+                    v_id_depto,
+                    '[RETROCESO] ' || v_parametros.obs);
+
+            update ads.tadendas
+            set id_estado_wf   = v_id_estado_actual,
+                estado         = v_codigo_estado,
+                id_usuario_mod = p_id_usuario,
+                fecha_mod      = now(),
+                id_usuario_ai  = v_parametros._id_usuario_ai,
+                usuario_ai     = v_parametros._nombre_usuario_ai
+            where id_adenda = v_parametros.id_adenda;
+
+            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Los cambios fueron realizados correctamente.');
+            v_resp = pxp.f_agrega_clave(v_resp, 'operacion', 'cambio_exitoso');
+
+            return v_resp;
+
+        end;
     else
         raise exception 'Transaccion inexistente: %',p_transaccion;
 

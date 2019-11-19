@@ -62,6 +62,7 @@ BEGIN
                            t.id_tipo,
                            t.descripcion
                     from ads.tadendas ad
+                             join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                              join ads.ttipos t on t.id_tipo = ad.id_tipo
                              left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
                              join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
@@ -72,7 +73,7 @@ BEGIN
                              left join param.vproveedor pv on pv.id_proveedor = obpg.id_proveedor
                              left join leg.tcontrato con on con.id_contrato = obpg.id_contrato
                              left join param.tplantilla pla on pla.id_plantilla = obpg.id_plantilla
-                             left join orga.vfuncionario fun on fun.id_funcionario = ad.id_funcionario
+                             left join orga.vfuncionario fun on fun.id_funcionario = wf.id_funcionario
                              join adq.tcotizacion cot on cot.id_obligacion_pago = obpg.id_obligacion_pago
                              join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
                              join adq.tsolicitud sol on sol.id_solicitud = pc.id_solicitud

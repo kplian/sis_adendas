@@ -387,17 +387,20 @@ header("content-type: text/javascript; charset=UTF-8");
                     }
                     case 'pendiente': {
                         this.getBoton('sig_estado').enable();
+                        this.getBoton('ant_estado').enable();
                         this.getBoton('edit').enable();
                         break;
                     }
                     case 'borrador': {
                         this.getBoton('sig_estado').enable();
+                        this.getBoton('ant_estado').disable();
                         this.getBoton('edit').enable();
                         break;
                     }
                     default: {
                         this.getBoton('sig_estado').disable();
                         this.getBoton('diagrama_gantt').disable();
+                        this.getBoton('ant_estado').disable();
                         this.getBoton('btnChequeoDocumentosWf').disable();
                     }
                 }
@@ -444,7 +447,16 @@ header("content-type: text/javascript; charset=UTF-8");
                     tooltip: '<b>Documentos de la Solicitud</b><br/>Subir los documetos requeridos en la solicitud seleccionada.'
                 }
             );
-            this.addButton('sig_estado',    {
+            this.addButton('ant_estado', {
+                argument: {estado: 'anterior'},
+                text: 'Anterior',
+                grupo: [0],
+                iconCls: 'batras',
+                disabled: false,
+                handler: this.antEstado,
+                tooltip: '<b>Pasar al Anterior Estado</b>'
+            });
+            this.addButton('sig_estado', {
                 grupo: [0],
                 text: 'Siguiente',
                 iconCls: 'badelante',
@@ -640,6 +652,58 @@ header("content-type: text/javascript; charset=UTF-8");
                         nro_tramite: rec.data.num_tramite
                     }
                 }, this.idContenedor, 'ChkPresupuesto');
+
+        },
+        antEstado: function (res) {
+            var data = this.getSelectedData();
+            Phx.CP.loadingHide();
+            Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/AntFormEstadoWf.php',
+                'Estado de Wf',
+                {
+                    modal: true,
+                    width: 450,
+                    height: 250
+                },
+                {
+                    data: data,
+                    estado_destino: res.argument.estado
+                },
+                this.idContenedor, 'AntFormEstadoWf',
+                {
+                    config: [{
+                        event: 'beforesave',
+                        delegate: this.onAntEstado,
+                    }],
+                    scope: this
+                });
+
+        },
+        onAntEstado: function (wizard, resp) {
+            console.log('resp', wizard.data.id_help_desk);
+            Phx.CP.loadingShow();
+            var operacion = 'cambiar';
+
+            Ext.Ajax.request({
+                url: '../../sis_adendas/control/Adendas/anteriorEstadoAdenda',
+                params: {
+                    id_adenda: wizard.data.id_adenda,
+                    id_proceso_wf: resp.id_proceso_wf,
+                    id_estado_wf: resp.id_estado_wf,
+                    obs: resp.obs,
+                    operacion: operacion
+                },
+                argument: {wizard: wizard},
+                success: this.successAntEstado,
+                failure: this.conexionFailure,
+                timeout: this.timeout,
+                scope: this
+            });
+        },
+
+        successAntEstado: function (resp) {
+            Phx.CP.loadingHide();
+            resp.argument.wizard.panel.destroy();
+            this.reload();
 
         },
     });

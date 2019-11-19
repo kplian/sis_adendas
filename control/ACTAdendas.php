@@ -68,6 +68,16 @@ class ACTAdendas extends ACTbase
         $this->res = $this->objFunc->siguienteEstado($this->objParam);
         $this->res->imprimirRespuesta($this->res->generarJson());
     }
+
+    function anteriorEstadoAdenda()
+    {
+        $this->objFunc = $this->create('MODAdenda');
+
+        $this->objParam->addParametro('id_funcionario_usu', $_SESSION["ss_id_funcionario"]);
+
+        $this->res = $this->objFunc->anteriorEstado($this->objParam);
+        $this->res->imprimirRespuesta($this->res->generarJson());
+    }
 }
 
 ?>
