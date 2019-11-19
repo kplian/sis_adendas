@@ -71,6 +71,19 @@ header("content-type: text/javascript; charset=UTF-8");
             }
             return tb
         },
+        liberaMenu: function () {
+            var tb = Phx.vista.Adendas.superclass.liberaMenu.call(this);
+            if (tb) {
+                this.getBoton('sig_estado').disable();
+                this.getBoton('ant_estado').disable();
+                this.getBoton('btnChequeoDocumentosWf').disable();
+                this.getBoton('diagrama_gantt').disable();
+                this.getBoton('chkpresupuesto').disable();
+                this.getBoton('btnSolicitud').disable();
+                this.getBoton('btnOrden').disable();
+            }
+            return tb
+        },
     }
 
 </script>

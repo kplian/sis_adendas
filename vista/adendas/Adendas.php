@@ -368,6 +368,15 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         liberaMenu: function () {
             var tb = Phx.vista.Adendas.superclass.liberaMenu.call(this);
+            if (tb) {
+                this.getBoton('btnChequeoDocumentosWf').disable();
+                this.getBoton('diagrama_gantt').disable();
+                this.getBoton('chkpresupuesto').disable();
+                this.getBoton('btnSolicitud').disable();
+                this.getBoton('btnOrden').disable();
+                this.getBoton('sig_estado').disable();
+                this.getBoton('ant_estado').disable();
+            }
             return tb
         },
         preparaMenu: function (n) {
