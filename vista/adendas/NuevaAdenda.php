@@ -412,6 +412,7 @@ header("content-type: text/javascript; charset=UTF-8");
 
                 }, scope: this
             });
+            this.Cmp.id_contrato_adenda.store.baseParams.id_contrato_fk = obligacion_pago.id_contrato;
         },
         successSave: function (resp) {
             var data = utils.serialize(resp);

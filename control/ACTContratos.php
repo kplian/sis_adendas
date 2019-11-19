@@ -14,6 +14,7 @@ class ACTContratos extends ACTbase
         $this->objParam->defecto('ordenacion', 'numero');
         $this->objParam->defecto('dir_ordenacion', 'asc');
 
+        $this->objParam->addFiltro('id_contrato_fk =' . $this->objParam->getParametro("id_contrato_fk"));
         $this->objFunc = $this->create('MODContrato');
         $this->res = $this->objFunc->listar($this->objParam);
 
