@@ -37,7 +37,7 @@ BEGIN
             end if;
 
             if p_administrador != 1 then
-                v_filtro = ' ad.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
+                v_filtro = ' wf.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
             end if;
 
             v_consulta := 'select ad.id_adenda,
