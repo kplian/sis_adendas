@@ -44,3 +44,6 @@ values (1, 1, now(), null, 'activo', 1, NULL, 'ADORDEN', 'Orden Modificatorio');
 select pxp.f_insert_tgui ('Procesos', 'Procesos', 'ADPRO', 'si', 1, '', 2, '', '', 'ADS');
 select pxp.f_insert_tgui ('Consultas', 'Consultas', 'ADCON', 'si', 1, '', 2, '', '', 'ADS');
 /********************************************F-DAT-VAN-ADS-4-18/11/2019********************************************/
+/********************************************I-DAT-VAN-ADS-5-18/11/2019********************************************/
+select pxp.f_insert_tgui ('Visto Bueno Modificatorios', 'Visto Bueno Modificatorios', 'ADVOBO', 'si', 2, 'sis_adendas/vista/adendas/AdendasVoBo.php', 3, '', 'AdendasVoBo', 'ADS');
+/********************************************F-DAT-VAN-ADS-5-18/11/2019********************************************/

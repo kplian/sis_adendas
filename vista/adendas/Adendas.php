@@ -359,7 +359,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 this.store.baseParams.filtro_valor = config.filtro_directo.valor;
                 this.store.baseParams.filtro_campo = config.filtro_directo.campo;
             }
-            this.load({params: {start: 0, limit: this.tam_pag}});
+            this.load({params: {start: 0, limit: this.tam_pag, nombreVista: this.nombreVista}});
             this.addBotones();
             this.iniciarEventos();
             this.getBoton('diagrama_gantt').disable();

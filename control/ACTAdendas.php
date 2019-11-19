@@ -20,6 +20,7 @@ class ACTAdendas extends ACTbase
         if ($this->objParam->getParametro('id_obligacion_pago') != '') {
             $this->objParam->addFiltro("ad.id_obligacion_pago = ''" . $this->objParam->getParametro('id_obligacion_pago') . "''");
         }
+        $this->objParam->addParametro('id_funcionario', $_SESSION["ss_id_funcionario"]);
 
         if ($this->objParam->getParametro('tipoReporte') == 'excel_grid' || $this->objParam->getParametro('tipoReporte') == 'pdf_grid') {
             $this->objReporte = new Reporte($this->objParam, $this);

@@ -21,6 +21,9 @@ class MODAdenda extends MODbase
         $this->transaccion = 'ADS_AD_SEL';
         $this->tipo_procedimiento = 'SEL';
 
+        $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
+        $this->setParametro('nombreVista', 'nombreVista', 'varchar');
+
         $this->captura('id_adenda', 'int4');
         $this->captura('id_obligacion_pago', 'int4');
         $this->captura('id_estado_wf', 'int4');

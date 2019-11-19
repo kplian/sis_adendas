@@ -25,7 +25,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.maestro = config.maestro;
             Phx.vista.AdendasPanel.superclass.constructor.call(this, config);
             this.store.baseParams = {id_obligacion_pago: '0'};
-            this.load({params: {start: 0, limit: 50}});
+            this.load({params: {start: 0, limit: 50, nombreVista: this.nombreVista}});
             this.panel.on('collapse',function(p){
                 if(!p.col){
                     var id = p.getEl().id,
@@ -62,7 +62,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         actualizarTabla: function (sm) {
             this.store.baseParams = {id_obligacion_pago: sm.id_obligacion_pago};
-            this.load({params: {start: 0, limit: 50}})
+            this.load({params: {start: 0, limit: 50,nombreVista: this.nombreVista}})
         },
         tieneAdendas: function () {
             return this.store.data.items.length > 0;

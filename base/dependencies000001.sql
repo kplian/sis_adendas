@@ -115,3 +115,6 @@ select pxp.f_insert_testructura_gui ('ADCON', 'ADS');
 select pxp.f_insert_testructura_gui ('AD', 'ADPRO');
 select pxp.f_insert_testructura_gui ('ADOP', 'ADCON');
 /********************************************F-DEP-VAN-ADS-6-18/11/2019*************************************/
+/********************************************I-DEP-VAN-ADS-7-18/11/2019*************************************/
+select pxp.f_insert_testructura_gui ('ADVOBO', 'ADPRO');
+/********************************************F-DEP-VAN-ADS-7-18/11/2019*************************************/

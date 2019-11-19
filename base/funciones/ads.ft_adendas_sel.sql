@@ -22,7 +22,7 @@ DECLARE
     v_parametros     record;
     v_nombre_funcion text;
     v_resp           varchar;
-
+    v_filtro         varchar;
 BEGIN
 
     v_nombre_funcion = 'ads.ft_adendas_sel';
@@ -30,6 +30,16 @@ BEGIN
     IF (p_transaccion = 'ADS_AD_SEL') THEN
 
         BEGIN
+
+            v_filtro = '';
+            IF v_parametros.nombreVista = 'AdendasVoBo' then
+                v_filtro = ' ad.estado = ''pendiente'' and ';
+            end if;
+
+            if p_administrador != 1 then
+                v_filtro = ' ad.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
+            end if;
+
             v_consulta := 'select ad.id_adenda,
                            ad.id_obligacion_pago,
                            ad.id_estado_wf,
@@ -67,7 +77,7 @@ BEGIN
                              join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
                              join adq.tsolicitud sol on sol.id_solicitud = pc.id_solicitud
                              left join leg.vcontrato vcon on vcon.id_contrato = ad.id_contrato_adenda
-                    where ad.estado_reg = ''activo'' and ';
+                    where ' || v_filtro || ' ad.estado_reg = ''activo'' and ';
 
             v_consulta := v_consulta || v_parametros.filtro;
             v_consulta := v_consulta || ' order by ' || v_parametros.ordenacion || ' ' ||
