@@ -392,7 +392,7 @@ header("content-type: text/javascript; charset=UTF-8");
             self.getComponente('total_pago').setValue(obligacion_pago.total_pago);
             self.getComponente('fecha_fin').setValue(obligacion_pago.fecha_fin);
             self.getComponente('fecha_soli').setValue(obligacion_pago.fecha_soli);
-
+            self.getComponente('estado').setValue(obligacion_pago.estado);
             if (obligacion_pago.numero_contrato == '') {
                 self.getComponente('numero_contrato').setValue(obligacion_pago.numero_orden);
                 self.getComponente('id_contrato_adenda').setDisabled(true);
