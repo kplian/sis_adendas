@@ -12,7 +12,7 @@ declare
     v_id_obligacion_pago integer;
 begin
 
-    select total_pago, nueva_fecha_fin, id_obligacion_pago
+    select total_pago, fecha_entrega, id_obligacion_pago
     into v_total_pago, v_nueva_fecha , v_id_obligacion_pago
     from ads.tadendas
     where id_adenda = p_id_adenda;

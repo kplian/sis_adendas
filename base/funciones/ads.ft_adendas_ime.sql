@@ -97,7 +97,7 @@ BEGIN
                                       num_tramite,
                                       numero,
                                       total_pago,
-                                      nueva_fecha_fin,
+                                      fecha_entrega,
                                       observacion,
                                       id_contrato_adenda,
                                       id_tipo)
@@ -116,7 +116,7 @@ BEGIN
                     NULL,
                     v_num_adenda,
                     v_total_pago,
-                    v_parametros.nueva_fecha_fin,
+                    v_parametros.fecha_entrega,
                     v_parametros.observacion,
                     v_parametros.id_contrato_adenda,
                     v_parametros.id_tipo)
@@ -223,7 +223,7 @@ BEGIN
                 id_usuario_ai      = v_parametros._id_usuario_ai,
                 fecha_mod          = now(),
                 id_usuario_mod     = p_id_usuario,
-                nueva_fecha_fin    = v_parametros.nueva_fecha_fin,
+                fecha_entrega    = v_parametros.fecha_entrega,
                 id_funcionario     = v_parametros.id_funcionario,
                 id_tipo            = v_parametros.id_tipo
             where id_adenda = v_parametros.id_adenda;

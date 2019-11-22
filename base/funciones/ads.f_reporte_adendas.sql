@@ -34,7 +34,7 @@ begin
                ad.num_tramite,
                con.numero  as numero_contrato,
                ad.estado_reg,
-               ad.nueva_fecha_fin,
+               ad.fecha_entrega,
                ad.observacion,
                wfp.descripcion,
                wfe.fecha_mod,

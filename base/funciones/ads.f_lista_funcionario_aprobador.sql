@@ -33,7 +33,7 @@ DECLARE
 BEGIN
     v_nombre_funcion = 'adq.f_lista_funcionario_aprobador';
 
-    select ad.nueva_fecha_fin,
+    select ad.fecha_entrega,
            ad.id_funcionario,
            ad.total_pago as monto_pago_mb
     into
@@ -48,8 +48,8 @@ BEGIN
                             on uo.id_uo = uofun.id_uo
                  inner join orga.tnivel_organizacional no
                             on no.id_nivel_organizacional = uo.id_nivel_organizacional
-        where uofun.fecha_asignacion <= v_reg_op.nueva_fecha_fin
-          and (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.nueva_fecha_fin)
+        where uofun.fecha_asignacion <= v_reg_op.fecha_entrega
+          and (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.fecha_entrega)
           and uofun.estado_reg = 'activo'
           and uofun.id_funcionario = v_reg_op.id_funcionario
         UNION
@@ -64,9 +64,9 @@ BEGIN
                             on hijo.id_uo = euo.id_uo_hijo
                  left join orga.tuo_funcionario uofun
                            on uo.id_uo = uofun.id_uo and uofun.estado_reg = 'activo' and
-                              uofun.fecha_asignacion <= v_reg_op.nueva_fecha_fin
+                              uofun.fecha_asignacion <= v_reg_op.fecha_entrega
                                and
-                              (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.nueva_fecha_fin)
+                              (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.fecha_entrega)
     )
     SELECT pxp.aggarray(id_uo)
     into
@@ -97,7 +97,7 @@ BEGIN
                                                      null,
                                                      null,
                                                      v_id_subsistema,
-                                                     v_reg_op.nueva_fecha_fin,
+                                                     v_reg_op.fecha_entrega,
                                                      v_reg_op.monto_pago_mb,
                                                      p_id_usuario,
                                                      null
@@ -149,7 +149,7 @@ BEGIN
                                                          null,
                                                          null,
                                                          v_id_subsistema,
-                                                         v_reg_op.nueva_fecha_fin,
+                                                         v_reg_op.fecha_entrega,
                                                          v_reg_op.monto_pago_mb,
                                                          p_id_usuario,
                                                          null

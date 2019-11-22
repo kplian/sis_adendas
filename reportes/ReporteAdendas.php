@@ -85,7 +85,7 @@ Class ReporteAdendas extends ReportePDF implements Estrategia
 
     function agregar_datos_proceso($proceso)
     {
-        $nueva_fecha_fin = DateTime::createFromFormat('Y-m-d', $proceso['nueva_fecha_fin']);
+        $fecha_entrega = DateTime::createFromFormat('Y-m-d', $proceso['fecha_entrega']);
         $tbl = '<h3><u>Adenda</u></h3>';
         $tbl .= '<table border="0.5px" width="100%" cellpadding="2" cellspacing="0" style="font-family: Monospaced;font-size: 9pt">';
         $tbl .= '<tbody>';
@@ -98,8 +98,8 @@ Class ReporteAdendas extends ReportePDF implements Estrategia
         $tbl .= '<tr>';
         $tbl .= '<td width="15%" style="background-color: #003366;color:#FFFFFF;font-weight: bold;" >N&uacute;mero Contrato</td>';
         $tbl .= '<td width="35%" style="background-color: #E1E8F0;">' . $proceso['numero_contratp'] . '</td>';
-        $tbl .= '<td width="15%" style="background-color: #003366;color:#FFFFFF;font-weight: bold;">Nueva Fecha Fin</td>';
-        $tbl .= '<td width="35%" style="background-color: #E1E8F0;" >' . $proceso['nueva_fecha_fin'] . '</td>';
+        $tbl .= '<td width="15%" style="background-color: #003366;color:#FFFFFF;font-weight: bold;">Fecha Entrega</td>';
+        $tbl .= '<td width="35%" style="background-color: #E1E8F0;" >' . $proceso['fecha_entrega'] . '</td>';
         $tbl .= '</tr>';
         $tbl .= '<tr>';
         $tbl .= '<td width="15%" style="background-color: #003366;color:#FFFFFF;font-weight: bold;" >Funcionario</td>';

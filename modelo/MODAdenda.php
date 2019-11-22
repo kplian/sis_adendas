@@ -34,7 +34,7 @@ class MODAdenda extends MODbase
         $this->captura('total_pago', 'numeric');
         $this->captura('estado_reg', 'varchar');
         $this->captura('estado', 'varchar');
-        $this->captura('nueva_fecha_fin', 'date');
+        $this->captura('fecha_entrega', 'date');
         $this->captura('observacion', 'varchar');
         $this->captura('numero', 'varchar');
         $this->captura('nombre_depto', 'varchar');
@@ -64,7 +64,7 @@ class MODAdenda extends MODbase
         $this->setParametro('id_contrato', 'id_contrato', 'int4');
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
-        $this->setParametro('nueva_fecha_fin', 'nueva_fecha_fin', 'date');
+        $this->setParametro('fecha_entrega', 'fecha_entrega', 'date');
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
@@ -85,7 +85,7 @@ class MODAdenda extends MODbase
 
         $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
         $this->setParametro('id_adenda', 'id_adenda', 'int4');
-        $this->setParametro('nueva_fecha_fin', 'nueva_fecha_fin', 'date');
+        $this->setParametro('fecha_entrega', 'fecha_entrega', 'date');
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_tipo', 'id_tipo', 'int4');
@@ -127,7 +127,7 @@ class MODAdenda extends MODbase
         $this->tipo_procedimiento = 'IME';
         $this->setParametro('id_obligacion_pago', 'id_obligacion_pago', 'int4');
         $this->setParametro('id_funcionario', 'id_funcionario', 'int4');
-        $this->setParametro('nueva_fecha_fin', 'nueva_fecha_fin', 'date');
+        $this->setParametro('fecha_entrega', 'fecha_entrega', 'date');
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
@@ -204,7 +204,7 @@ class MODAdenda extends MODbase
         $this->captura('total_pago', 'numeric');
         $this->captura('estado_reg', 'varchar');
         $this->captura('estado', 'varchar');
-        $this->captura('nueva_fecha_fin', 'date');
+        $this->captura('fecha_entrega', 'date');
         $this->captura('observacion', 'varchar');
         $this->captura('numero', 'varchar');
         $this->captura('nombre_depto', 'varchar');
@@ -229,7 +229,7 @@ class MODAdenda extends MODbase
         $this->captura('num_tramite', 'varchar');
         $this->captura('numero_contrato', 'varchar');
         $this->captura('estado_reg', 'varchar');
-        $this->captura('nueva_fecha_fin', 'date');
+        $this->captura('fecha_entrega', 'date');
         $this->captura('observacion', 'varchar');
         $this->captura('descripcion', 'varchar');
         $this->captura('fecha_mod', 'timestamp');

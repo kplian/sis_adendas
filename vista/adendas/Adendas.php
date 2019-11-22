@@ -218,9 +218,9 @@ header("content-type: text/javascript; charset=UTF-8");
             },
             {
                 config: {
-                    name: 'nueva_fecha_fin',
+                    name: 'fecha_entrega',
                     currencyChar: ' ',
-                    fieldLabel: 'Nueva Fecha Contrato',
+                    fieldLabel: 'Fecha Entrega',
                     allowBlank: false,
                     anchor: '100%',
                     width: '100%',
@@ -306,7 +306,7 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'estado_reg', type: 'string'},
             {name: 'num_tramite', type: 'string'},
             {name: 'total_pago', type: 'mumeric'},
-            {name: 'nueva_fecha_fin', type: 'date'},
+            {name: 'fecha_entrega', type: 'date'},
             {name: 'observacion', type: 'string'},
             {name: 'numero', type: 'string'},
             {name: 'nombre_depto', type: 'string'},

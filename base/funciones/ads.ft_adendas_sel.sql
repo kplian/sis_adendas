@@ -50,7 +50,7 @@ BEGIN
                            COALESCE(ad.total_pago, 0) as total_pago,
                            ad.estado_reg,
                            ad.estado,
-                           ad.nueva_fecha_fin,
+                           ad.fecha_entrega,
                            ad.observacion,
                            ad.numero,
                            dep.nombre                 as nombre_depto,

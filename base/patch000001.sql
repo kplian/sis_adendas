@@ -8,7 +8,7 @@ CREATE TABLE ads.tadendas (
   estado VARCHAR(255),
   num_tramite VARCHAR(200),
   total_pago NUMERIC(19,2),
-  nueva_fecha_fin DATE,
+  fecha_entrega DATE,
   observacion VARCHAR,
   numero VARCHAR,
   numero_adenda VARCHAR,

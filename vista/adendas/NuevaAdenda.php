@@ -253,8 +253,8 @@ header("content-type: text/javascript; charset=UTF-8");
             },
             {
                 config: {
-                    name: 'nueva_fecha_fin',
-                    fieldLabel: 'Nueva Fecha fin',
+                    name: 'fecha_entrega',
+                    fieldLabel: 'Fecha Entrega',
                     allowBlank: false,
                     width: '100%',
                     anchor: '100%',
@@ -295,7 +295,7 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'fecha_fin', type: 'date'},
             {name: 'fecha_soli', type: 'date'},
             {name: 'numero', type: 'string'},
-            {name: 'nueva_fecha_fin', type: 'date'},
+            {name: 'fecha_entrega', type: 'date'},
             {name: 'observacion', type: 'string'},
             {name: 'id_funcionario', type: 'numeric'},
             {name: 'id_contrato_adenda', type: 'numeric'}
