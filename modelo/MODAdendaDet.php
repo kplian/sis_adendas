@@ -51,6 +51,8 @@ class MODAdendaDet extends MODbase
         $this->captura('desc_orden', 'varchar');
         $this->captura('monto_pago_sg_mo', 'numeric');
         $this->captura('monto_pago_sg_mb', 'numeric');
+        $this->captura('precio_unitario', 'numeric');
+        $this->captura('cantidad_adjudicada', 'numeric');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -80,6 +82,8 @@ class MODAdendaDet extends MODbase
         $this->setParametro('id_orden_trabajo', 'id_orden_trabajo', 'int4');
         $this->setParametro('monto_pago_sg_mo', 'monto_pago_sg_mo', 'numeric');
         $this->setParametro('id_obligacion_det', 'id_obligacion_det', 'int4');
+        $this->setParametro('precio_unitario', 'precio_unitario', 'numeric');
+        $this->setParametro('cantidad_adjudicada', 'cantidad_adjudicada', 'numeric');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -110,6 +114,8 @@ class MODAdendaDet extends MODbase
         $this->setParametro('id_orden_trabajo', 'id_orden_trabajo', 'int4');
         $this->setParametro('monto_pago_sg_mo', 'monto_pago_sg_mo', 'numeric'); //#19
         $this->setParametro('id_obligacion_det', 'id_obligacion_det', 'int4');
+        $this->setParametro('precio_unitario', 'precio_unitario', 'numeric');
+        $this->setParametro('cantidad_adjudicada', 'cantidad_adjudicada', 'numeric');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();

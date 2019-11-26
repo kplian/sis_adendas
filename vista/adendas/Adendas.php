@@ -586,7 +586,6 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         onButtonOrden: function () {
             var rec = this.sm.getSelected();
-            console.log("ADENDA", rec);
             Ext.Ajax.request({
                 url: '../../sis_adendas/control/ReportesOrden/reporteOrden',
                 params: {'id_proceso_wf': rec.data.id_proceso_wf, 'estado': rec.data.estado},
@@ -795,7 +794,6 @@ header("content-type: text/javascript; charset=UTF-8");
 
         },
         onAntEstado: function (wizard, resp) {
-            console.log('resp', wizard.data.id_help_desk);
             Phx.CP.loadingShow();
             var operacion = 'cambiar';
 

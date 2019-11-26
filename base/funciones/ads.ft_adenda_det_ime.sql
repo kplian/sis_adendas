@@ -129,7 +129,9 @@ BEGIN
                                         id_orden_trabajo,
                                         monto_pago_sg_mo,
                                         monto_pago_sg_mb,
-                                        id_adenda)
+                                        id_adenda,
+                                        precio_unitario,
+                                        cantidad_adjudicada)
             values ('activo',
                     v_id_partida,
                     v_parametros.id_concepto_ingas,
@@ -144,7 +146,9 @@ BEGIN
                     v_parametros.id_orden_trabajo,
                     v_parametros.monto_pago_sg_mo,
                     v_monto_pago_sg_mb,
-                    v_parametros.id_adenda)
+                    v_parametros.id_adenda,
+                    v_parametros.precio_unitario,
+                    v_parametros.cantidad_adjudicada)
             RETURNING id_adenda_det into v_id_adenda_det;
 
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje',
@@ -244,7 +248,9 @@ BEGIN
                 id_usuario_mod       = p_id_usuario,
                 id_orden_trabajo     = v_parametros.id_orden_trabajo,
                 monto_pago_sg_mo     = v_parametros.monto_pago_sg_mo,
-                monto_pago_sg_mb     = v_monto_pago_sg_mb
+                monto_pago_sg_mb     = v_monto_pago_sg_mb,
+                precio_unitario      = v_parametros.precio_unitario,
+                cantidad_adjudicada  = v_parametros.cantidad_adjudicada
             where id_adenda_det = v_parametros.id_adenda_det;
 
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Detalle modificado(a)');

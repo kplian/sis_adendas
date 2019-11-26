@@ -60,7 +60,9 @@ BEGIN
                            ot.id_orden_trabajo,
                            ot.desc_orden,
                            adt.monto_pago_sg_mo,
-                           adt.monto_pago_sg_mb
+                           adt.monto_pago_sg_mb,
+                           adt.precio_unitario,
+                           adt.cantidad_adjudicada
                     from ads.tadenda_det adt
                              inner join segu.tusuario usu1 on usu1.id_usuario = adt.id_usuario_reg
                              left join segu.tusuario usu2 on usu2.id_usuario = adt.id_usuario_mod

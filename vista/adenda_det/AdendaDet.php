@@ -232,6 +232,40 @@ header("content-type: text/javascript; charset=UTF-8");
             },
             {
                 config: {
+                    name: 'precio_unitario',
+                    currencyChar: ' ',
+                    fieldLabel: 'Precio Unitario',
+                    allowBlank: false,
+                    anchor: '80%',
+                    gwidth: 100,
+                    maxLength: 1245184,
+                },
+                type: 'MoneyField',
+                filters: {pfiltro: 'adt.precio_unitario', type: 'numeric'},
+                id_grupo: 1,
+                grid: true,
+                form: true
+            },
+            {
+                config: {
+                    name: 'cantidad_adjudicada',
+                    fieldLabel: 'Cantidad Adjudicada',
+                    allowBlank: false,
+                    anchor: '80%',
+                    gwidth: 100,
+                    maxLength: 1245184,
+                    allowNegative: false,
+                    allowDecimals: true,
+                    minValue: 1
+                },
+                type: 'NumberField',
+                filters: {pfiltro: 'adt.cantidad_adjudicada', type: 'numeric'},
+                id_grupo: 1,
+                grid: true,
+                form: true
+            },
+            {
+                config: {
                     name: 'monto_pago_mo',
                     currencyChar: ' ',
                     fieldLabel: 'Monto Total Pago',
@@ -494,7 +528,9 @@ header("content-type: text/javascript; charset=UTF-8");
             'id_orden_trabajo',
             'desc_orden',
             'monto_pago_sg_mo',
-            'monto_pago_sg_mb'
+            'monto_pago_sg_mb',
+            {name: 'precio_unitario', type: 'numeric'},
+            {name: 'cantidad_adjudicada', type: 'numeric'},
         ],
         constructor: function (config) {
             this.maestro = config.maestro;
@@ -521,7 +557,23 @@ header("content-type: text/javascript; charset=UTF-8");
             });
         },
         iniciarEventos: function () {
-
+            var self = this;
+            var cantidad = self.getComponente('cantidad_adjudicada');
+            var precioUnitario = self.getComponente('precio_unitario');
+            cantidad.on("change", function (ele, newValue, oldValue) {
+                self.updateMonto(newValue, precioUnitario.getValue())
+            });
+            precioUnitario.on("change", function (ele, newValue, oldValue) {
+                self.updateMonto(cantidad.getValue(), newValue)
+            });
+        },
+        updateMonto: function (cantidad, precioUitario) {
+            var total = parseFloat(cantidad) * parseFloat(precioUitario);
+            var monto = this.getComponente('monto_pago_mo');
+            if (isNaN(total)) {
+                total = 0;
+            }
+            monto.setValue(total);
         },
         onReloadPage: function (m) {
             this.maestro = m;

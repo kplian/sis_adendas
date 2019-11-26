@@ -138,3 +138,10 @@ alter table ads.tadendas
 alter table ads.tadendas
     add glosa varchar(5000) default null;
 /***********************************F-SCP-VAN-ADS-3-22/11/2019****************************************/
+/***********************************I-SCP-VAN-ADS-4-26/11/2019****************************************/
+alter table ads.tadenda_det
+    add precio_unitario numeric default 0;
+
+alter table ads.tadenda_det
+    add cantidad_adjudicada numeric default 0;
+/***********************************F-SCP-VAN-ADS-4-26/11/2019****************************************/
