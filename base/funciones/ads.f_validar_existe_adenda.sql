@@ -17,7 +17,7 @@ begin
 
     if v_num_tramite is not null then
         v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'La obligación de pago (tramite: ' || v_num_tramite ||
-                                                       ') ya posee una adenda en proceso!');
+                                                       ') ya posee un modificatorio en proceso!');
         raise exception '%',v_resp;
     end if;
 

@@ -41,7 +41,7 @@ header("content-type: text/javascript; charset=UTF-8");
             var self = this;
             var data = self.getSelectedData();
             self.winNuevaAdenda = Phx.CP.loadWindows('../../../sis_adendas/vista/adendas/NuevaAdenda.php',
-                'Nueva Moficiaci&oacute;n',
+                'Nuevo Modificatorio',
                 {
                     modal: true,
                     width: 500,

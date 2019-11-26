@@ -27,19 +27,18 @@ BEGIN
 
     v_nombre_funcion = 'ads.ft_adendas_sel';
     v_parametros = pxp.f_get_record(p_tabla);
+
+    v_filtro = '';
+    IF v_parametros.nombreVista = 'AdendasVoBo' then
+        v_filtro = ' ad.estado = ''pendiente'' and ';
+    end if;
+
+    if p_administrador != 1 then
+        v_filtro = ' wf.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
+    end if;
+
     IF (p_transaccion = 'ADS_AD_SEL') THEN
-
         BEGIN
-
-            v_filtro = '';
-            IF v_parametros.nombreVista = 'AdendasVoBo' then
-                v_filtro = ' ad.estado = ''pendiente'' and ';
-            end if;
-
-            if p_administrador != 1 then
-                v_filtro = ' wf.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
-            end if;
-
             v_consulta := 'select ad.id_adenda,
                            ad.id_obligacion_pago,
                            ad.id_estado_wf,
@@ -53,6 +52,11 @@ BEGIN
                            ad.fecha_entrega,
                            ad.observacion,
                            ad.numero,
+                           ad.numero_modificatorio,
+                           ad.fecha_informe,
+                           ad.lugar_entrega,
+                           ad.forma_pago,
+                           ad.glosa,
                            dep.nombre                 as nombre_depto,
                            con.numero                 as numero_contrato,
                            fun.desc_funcionario1,
@@ -60,7 +64,8 @@ BEGIN
                            vcon.numero as numero_adenda,
                            ad.id_contrato_adenda,
                            t.id_tipo,
-                           t.descripcion
+                           t.descripcion,
+                           fun.codigo
                     from ads.tadendas ad
                              join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                              join ads.ttipos t on t.id_tipo = ad.id_tipo
@@ -104,7 +109,7 @@ BEGIN
                                             left join leg.tcontrato con on con.id_contrato = obpg.id_contrato
                                             left join param.tplantilla pla on pla.id_plantilla = obpg.id_plantilla
                                             left join orga.vfuncionario fun on fun.id_funcionario=obpg.id_funcionario
-                                            where  ad.estado_reg = ''activo'' and ';
+                                            where ' || v_filtro || ' ad.estado_reg = ''activo'' and ';
 
             v_consulta := v_consulta || v_parametros.filtro;
 

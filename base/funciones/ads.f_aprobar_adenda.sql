@@ -71,7 +71,7 @@ begin
             where ad.id_adenda_det in (array_to_string(v_registros.adenda_det_ids, ','):: integer);
 
         end loop;
-    v_resp = 'Adenda confirmada satisfactoriamente';
+    v_resp = 'Modificatorio confirmado satisfactoriamente';
     return v_resp;
 exception
     when others then

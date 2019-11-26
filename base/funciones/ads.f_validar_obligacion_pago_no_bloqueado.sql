@@ -12,7 +12,7 @@ begin
                        JOIN tes.tobligacion_det obd ON obd.id_obligacion_pago = ob.id_obligacion_pago
               WHERE ob.id_obligacion_pago = p_id_obligacion_pago
                 AND ob.bloqueado = 1) then
-        raise exception 'No es posible crear una adenda a una obligacioón de pago bloqueada';
+        raise exception 'No es posible crear un modificatorio a una obligacioón de pago bloqueada';
     end if;
 
     return true;

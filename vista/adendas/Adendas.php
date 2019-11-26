@@ -293,7 +293,82 @@ header("content-type: text/javascript; charset=UTF-8");
                 id_grupo: 1,
                 grid: true,
                 form: false
-            }
+            },
+            {
+                config: {
+                    name: 'numero_modificatorio',
+                    fieldLabel: 'N&uacute;mero Modificatorio',
+                    allowBlank: true,
+                    anchor: '100%',
+                    width: '100%',
+                    maxLength: 1000
+                },
+                type: 'field',
+                filters: {pfiltro: 'numero_modificatorio', type: 'string'},
+                id_grupo: 1,
+                grid: true,
+                form: false
+            },
+            {
+                config: {
+                    name: 'fecha_informe',
+                    fieldLabel: 'Fecha Informe',
+                    allowBlank: true,
+                    anchor: '100%',
+                    width: '100%',
+                    maxLength: 1000
+                },
+                type: 'Datefield',
+                filters: {pfiltro: 'numero_modificatorio', type: 'string'},
+                id_grupo: 1,
+                grid: true,
+                form: false
+            },
+            {
+                config: {
+                    name: 'lugar_entrega',
+                    fieldLabel: 'Lugar Entrega',
+                    allowBlank: true,
+                    anchor: '100%',
+                    width: '100%',
+                    maxLength: 1000
+                },
+                type: 'field',
+                filters: {pfiltro: 'numero_modificatorio', type: 'string'},
+                id_grupo: 1,
+                grid: true,
+                form: false
+            },
+            {
+                config: {
+                    name: 'forma_pago',
+                    fieldLabel: 'Forma Pago',
+                    allowBlank: true,
+                    anchor: '100%',
+                    width: '100%',
+                    maxLength: 1000
+                },
+                type: 'field',
+                filters: {pfiltro: 'forma_pago', type: 'string'},
+                id_grupo: 1,
+                grid: true,
+                form: false
+            },
+            {
+                config: {
+                    name: 'glosa',
+                    fieldLabel: 'Glosa',
+                    allowBlank: true,
+                    anchor: '100%',
+                    width: '100%',
+                    maxLength: 1000
+                },
+                type: 'field',
+                filters: {pfiltro: 'glosa', type: 'string'},
+                id_grupo: 1,
+                grid: false,
+                form: false
+            },
         ],
         fields: [
             {name: 'id_adenda', type: 'numeric'},
@@ -309,6 +384,11 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'fecha_entrega', type: 'date'},
             {name: 'observacion', type: 'string'},
             {name: 'numero', type: 'string'},
+            {name: 'numero_modificatorio', type: 'string'},
+            {name: 'fecha_informe', type: 'string'},
+            {name: 'lugar_entrega', type: 'string'},
+            {name: 'forma_pago', type: 'string'},
+            {name: 'glosa', type: 'string'},
             {name: 'nombre_depto', type: 'string'},
             {name: 'numero_contrato', type: 'string'},
             {name: 'desc_funcionario1', type: 'string'},
@@ -316,7 +396,8 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'numero_adenda', type: 'string'},
             {name: 'id_contrato_adenda', type: 'numeric'},
             {name: 'id_tipo', type: 'numeric'},
-            {name: 'descripcion', type: 'string'}
+            {name: 'descripcion', type: 'string'},
+            {name: 'codigo', type: 'string'}
         ],
         arrayDefaultColumHidden: [],
         rowExpander: new Ext.ux.grid.RowExpander({
@@ -351,7 +432,7 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.vista.Adendas.superclass.constructor.call(this, config);
             this.init();
             this.store.baseParams = {
-                tipo_interfaz: this.nombreVista,
+                nombreVista: this.nombreVista,
                 id_adenda: this.maestro.id_adenda
             };
 
@@ -585,19 +666,29 @@ header("content-type: text/javascript; charset=UTF-8");
 
         },
         onButtonEdit: function (n) {
-            var data = this.getSelectedData();
-            Phx.vista.Adendas.superclass.onButtonEdit.call(this, n);
-            this.Cmp.id_funcionario.store.baseParams.fecha =  new Date();
-            this.Cmp.id_funcionario.store.baseParams.query = data.id_funcionario;
-            this.Cmp.id_funcionario.store.load({params:{start:0,limit:this.tam_pag},
-                callback : function (r) {
-                    if (r.length > 0 ) {
+            var self = this;
+            var record = this.getSelectedData();
+            self.fheight = self.calTamPor(self.fheight, Ext.getBody());
+            self.winNuevaAdenda = Phx.CP.loadWindows('../../../sis_adendas/vista/adendas/NuevaAdenda.php',
+                'Editar Modificatorio',
+                {
+                    modal: true,
+                    width: "60%",
+                    height: "70%",
+                    closeAction: "close"
+                },
+                {adenda: record},
+                self.idContenedor,
+                'NuevaAdenda',
+                {
+                    config: [{
+                        event: 'successsave',
+                        delegate: self.guardarNuevaAdenda,
 
-                        this.Cmp.id_funcionario.setValue(r[0].data.id_funcionario);
-                    }
+                    }],
 
-                }, scope : this
-            });
+                    scope: self
+                });
         },
         refreshGrid: function () {
             this.reload()

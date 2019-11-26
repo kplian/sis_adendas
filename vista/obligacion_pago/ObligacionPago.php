@@ -805,7 +805,8 @@ header("content-type: text/javascript; charset=UTF-8");
         liberaMenu: function () {
             var tb = Phx.vista.ObligacionPago.superclass.liberaMenu.call(this);
             if (tb) {
-
+                this.getBoton('diagrama_gantt').disable();
+                this.getBoton('seleccionar').disable();
             }
             return tb
         },
@@ -826,7 +827,7 @@ header("content-type: text/javascript; charset=UTF-8");
         addBotonSeleccionar: function () {
             this.menuAdq = new Ext.Toolbar.Button({
                 id: 'b-seleccionar-' + this.idContenedor,
-                text: 'Crear Adenda',
+                text: 'Crear Modificatorio',
                 grupo: [0, 1, 2],
                 iconCls: 'brenew',
                 disabled: false,
@@ -868,10 +869,11 @@ header("content-type: text/javascript; charset=UTF-8");
             this.menuAdq.on('click', function (event) {
                 var data = self.getSelectedData();
                 self.winNuevaAdenda = Phx.CP.loadWindows('../../../sis_adendas/vista/adendas/NuevaAdenda.php',
-                    'Nueva Adenda',
+                    'Nuevo Modificatorio',
                     {
                         modal: true,
-                        width: 500,
+                        width: "60%",
+                        height: "70%",
                         closeAction: "close"
                     },
                     {obligacion_pago: data},

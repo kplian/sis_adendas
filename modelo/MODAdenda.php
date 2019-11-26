@@ -37,6 +37,11 @@ class MODAdenda extends MODbase
         $this->captura('fecha_entrega', 'date');
         $this->captura('observacion', 'varchar');
         $this->captura('numero', 'varchar');
+        $this->captura('numero_modificatorio', 'varchar');
+        $this->captura('fecha_informe', 'date');
+        $this->captura('lugar_entrega', 'varchar');
+        $this->captura('forma_pago', 'varchar');
+        $this->captura('glosa', 'varchar');
         $this->captura('nombre_depto', 'varchar');
         $this->captura('numero_contrato', 'varchar');
         $this->captura('desc_funcionario1', 'text');
@@ -45,6 +50,7 @@ class MODAdenda extends MODbase
         $this->captura('id_contrato_adenda', 'int4');
         $this->captura('id_tipo', 'int4');
         $this->captura('descripcion', 'varchar');
+        $this->captura('codigo', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -69,6 +75,11 @@ class MODAdenda extends MODbase
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
         $this->setParametro('id_tipo', 'id_tipo', 'int4');
+        $this->setParametro('fecha_informe', 'fecha_informe', 'date');
+        $this->setParametro('numero_modificatorio', 'numero_modificatorio', 'varchar');
+        $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
+        $this->setParametro('forma_pago', 'forma_pago', 'varchar');
+        $this->setParametro('glosa', 'glosa', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -89,6 +100,11 @@ class MODAdenda extends MODbase
         $this->setParametro('numero', 'numero', 'varchar');
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_tipo', 'id_tipo', 'int4');
+        $this->setParametro('fecha_informe', 'fecha_informe', 'date');
+        $this->setParametro('numero_modificatorio', 'numero_modificatorio', 'varchar');
+        $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
+        $this->setParametro('forma_pago', 'forma_pago', 'varchar');
+        $this->setParametro('glosa', 'glosa', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -132,6 +148,11 @@ class MODAdenda extends MODbase
         $this->setParametro('observacion', 'observacion', 'varchar');
         $this->setParametro('id_contrato_adenda', 'id_contrato_adenda', 'int4');
         $this->setParametro('id_tipo', 'id_tipo', 'int4');
+        $this->setParametro('fecha_informe', 'fecha_informe', 'date');
+        $this->setParametro('numero_modificatorio', 'numero_modificatorio', 'varchar');
+        $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
+        $this->setParametro('forma_pago', 'forma_pago', 'varchar');
+        $this->setParametro('glosa', 'glosa', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();

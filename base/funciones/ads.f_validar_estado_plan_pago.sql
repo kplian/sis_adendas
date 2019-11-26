@@ -13,7 +13,7 @@ begin
                   where pp.estado not in ('anticipado', 'devengado')
                     and pp.id_obligacion_pago = p_id_obligacion
                     AND id_plan_pago_fk is null) then
-        raise exception 'No es posible crear una adenda para Obligaciones de pago con pagos en curso';
+        raise exception 'No es posible crear un modificatorio para Obligaciones de pago con pagos en curso';
     end if;
 
     return true;

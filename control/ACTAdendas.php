@@ -55,7 +55,11 @@ class ACTAdendas extends ACTbase
         $this->objParam->addParametro('id_funcionario', $_SESSION["ss_id_funcionario"]);
         $this->objParam->addParametro('estado_reg', 'activo');
         $this->objFunc = $this->create('MODAdenda');
-        $this->res = $this->objFunc->clonarObligacion($this->objParam);
+        if ($this->objParam->insertar('id_adenda')) {
+            $this->res = $this->objFunc->clonarObligacion($this->objParam);
+        } else {
+            $this->res = $this->objFunc->modificar($this->objParam);
+        }
         $this->res->imprimirRespuesta($this->res->generarJson());
     }
 

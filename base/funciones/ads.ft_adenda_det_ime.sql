@@ -261,7 +261,7 @@ BEGIN
             from ads.tadenda_det
             where id_adenda_det = v_parametros.id_adenda_det;
 
-            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Sis Adenda eliminado(a)');
+            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Proceso realizado correctamente');
             v_resp = pxp.f_agrega_clave(v_resp, 'id_adenda_det', v_parametros.id_adenda_det::VARCHAR);
 
             return v_resp;

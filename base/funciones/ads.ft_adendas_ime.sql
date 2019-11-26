@@ -100,7 +100,12 @@ BEGIN
                                       fecha_entrega,
                                       observacion,
                                       id_contrato_adenda,
-                                      id_tipo)
+                                      id_tipo,
+                                      fecha_informe,
+                                      numero_modificatorio,
+                                      lugar_entrega,
+                                      forma_pago,
+                                      glosa)
             VALUES (p_id_usuario,
                     NULL,
                     NOW(),
@@ -119,7 +124,12 @@ BEGIN
                     v_parametros.fecha_entrega,
                     v_parametros.observacion,
                     v_parametros.id_contrato_adenda,
-                    v_parametros.id_tipo)
+                    v_parametros.id_tipo,
+                    v_parametros.fecha_informe,
+                    v_parametros.numero_modificatorio,
+                    v_parametros.lugar_entrega,
+                    v_parametros.forma_pago,
+                    v_parametros.glosa)
             RETURNING id_adenda into v_id_adenda;
 
             INSERT INTO ads.tadenda_det(id_usuario_reg,
@@ -188,7 +198,7 @@ BEGIN
                     v_obligacion.id_estado_wf,
                     v_id_funcionario,
                     v_id_depto,
-                    'Registro Manual de Adendas',
+                    'Registro Manual de Modificatorio',
                     'SEG-AD',
                     '');
 
@@ -207,7 +217,7 @@ BEGIN
             v_bloquear_obligacion = ads.f_cambiar_pago_variable_op(v_parametros.id_obligacion_pago, 'si');
 
             v_resp = pxp.f_agrega_clave(v_resp, 'mensaje',
-                                        'Sis Adendas almacenado(a) con exito (id_adenda' || v_id_adenda || ')');
+                                        'Sis Modificatorios almacenado(a) con exito (id_adenda' || v_id_adenda || ')');
             v_resp = pxp.f_agrega_clave(v_resp, 'id_adenda', v_id_adenda::varchar);
 
             return v_resp;
@@ -219,16 +229,21 @@ BEGIN
         begin
 
             update ads.tadendas
-            set observacion        = v_parametros.observacion,
-                id_usuario_ai      = v_parametros._id_usuario_ai,
-                fecha_mod          = now(),
-                id_usuario_mod     = p_id_usuario,
-                fecha_entrega    = v_parametros.fecha_entrega,
-                id_funcionario     = v_parametros.id_funcionario,
-                id_tipo            = v_parametros.id_tipo
+            set observacion          = v_parametros.observacion,
+                id_usuario_ai        = v_parametros._id_usuario_ai,
+                fecha_mod            = now(),
+                id_usuario_mod       = p_id_usuario,
+                fecha_entrega        = v_parametros.fecha_entrega,
+                id_funcionario       = v_parametros.id_funcionario,
+                id_tipo              = v_parametros.id_tipo,
+                fecha_informe        = v_parametros.fecha_informe,
+                numero_modificatorio = v_parametros.numero_modificatorio,
+                lugar_entrega        = v_parametros.lugar_entrega,
+                forma_pago           = v_parametros.forma_pago,
+                glosa                = v_parametros.glosa
             where id_adenda = v_parametros.id_adenda;
 
-            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Adenda modificada');
+            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'Proceso realizado correctamente');
             v_resp = pxp.f_agrega_clave(v_resp, 'id_adenda', v_parametros.id_adenda::varchar);
 
             return v_resp;
@@ -269,7 +284,7 @@ BEGIN
             where ad.id_adenda = v_parametros.id_adenda;
 
             if v_codigo_estado = 'aprobado' then
-                raise exception '%','No es posible anular una adenda en estado ' || v_codigo_estado;
+                raise exception '%','No es posible anular un modificatorio en estado ' || v_codigo_estado;
             end if;
 
             select te.id_tipo_estado, te.codigo, ew.id_estado_wf
@@ -302,7 +317,7 @@ BEGIN
 
             v_resp = ads.f_bloquear_obligacion_pago(v_id_obligacion_pago, 0)::varchar;
 
-            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'La Adenda fue Anulada');
+            v_resp = pxp.f_agrega_clave(v_resp, 'mensaje', 'El modificatorio fue anulado');
             v_resp = pxp.f_agrega_clave(v_resp, 'id_adenda', v_parametros.id_adenda::varchar);
 
             return v_resp;

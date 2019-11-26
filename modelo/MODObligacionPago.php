@@ -40,6 +40,10 @@ class MODObligacionPago extends MODbase
         $this->captura('fecha_fin', 'date');
         $this->captura('fecha_soli', 'date');
         $this->captura('codigo_fun', 'varchar');
+        $this->captura('lugar_entrega', 'varchar');
+        $this->captura('fecha_entrega', 'date');
+        $this->captura('forma_pago', 'varchar');
+        $this->captura('obs', 'text');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();

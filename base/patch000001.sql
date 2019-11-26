@@ -126,3 +126,15 @@ ALTER TABLE ads.ttipos
 alter table ads.tadendas
     add id_tipo int default null;
 /***********************************F-SCP-VAN-ADS-2-15/11/2019****************************************/
+/***********************************I-SCP-VAN-ADS-3-22/11/2019****************************************/
+alter table ads.tadendas
+    add fecha_informe date default null;
+alter table ads.tadendas
+    add lugar_entrega varchar(500) default null;
+alter table ads.tadendas
+    add numero_modificatorio varchar(100) default null;
+alter table ads.tadendas
+    add forma_pago varchar(500) default null;
+alter table ads.tadendas
+    add glosa varchar(5000) default null;
+/***********************************F-SCP-VAN-ADS-3-22/11/2019****************************************/
