@@ -588,7 +588,11 @@ header("content-type: text/javascript; charset=UTF-8");
             var rec = this.sm.getSelected();
             Ext.Ajax.request({
                 url: '../../sis_adendas/control/ReportesOrden/reporteOrden',
-                params: {'id_proceso_wf': rec.data.id_proceso_wf, 'estado': rec.data.estado},
+                params: {
+                    id_adenda: rec.data.id_adenda,
+                    'id_proceso_wf': rec.data.id_proceso_wf,
+                    'estado': rec.data.estado
+                },
                 success: this.successExport,
                 failure: this.conexionFailure,
                 timeout: this.timeout,

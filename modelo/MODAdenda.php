@@ -246,18 +246,37 @@ class MODAdenda extends MODbase
 
         $this->setParametro('id_proceso_wf', 'id_proceso_wf', 'int4');
 
-        $this->captura('numero', 'varchar');
+        $this->captura('id_adenda', 'int4');
+        $this->captura('id_obligacion_pago', 'int4');
+        $this->captura('id_estado_wf', 'int4');
+        $this->captura('id_proceso_wf', 'int4');
+        $this->captura('id_funcionario', 'int4');
+        $this->captura('id_depto', 'int4');
         $this->captura('num_tramite', 'varchar');
-        $this->captura('numero_contrato', 'varchar');
+        $this->captura('total_pago', 'numeric');
         $this->captura('estado_reg', 'varchar');
+        $this->captura('estado', 'varchar');
         $this->captura('fecha_entrega', 'date');
         $this->captura('observacion', 'varchar');
-        $this->captura('descripcion', 'varchar');
-        $this->captura('fecha_mod', 'timestamp');
-        $this->captura('estado', 'varchar');
+        $this->captura('numero', 'varchar');
+        $this->captura('numero_modificatorio', 'varchar');
+        $this->captura('fecha_informe', 'date');
+        $this->captura('lugar_entrega', 'varchar');
+        $this->captura('forma_pago', 'varchar');
+        $this->captura('glosa', 'varchar');
         $this->captura('nombre_depto', 'varchar');
-        $this->captura('total_pago', 'numeric');
+        $this->captura('numero_contrato', 'varchar');
         $this->captura('desc_funcionario1', 'text');
+        $this->captura('tipo', 'varchar');
+        $this->captura('numero_adenda', 'varchar');
+        $this->captura('id_contrato_adenda', 'int4');
+        $this->captura('id_tipo', 'int4');
+        $this->captura('descripcion', 'varchar');
+        $this->captura('codigo', 'varchar');
+        $this->captura('rotulo_comercial', 'varchar');
+        $this->captura('direccion', 'varchar');
+        $this->captura('correo_contacto', 'varchar');
+        $this->captura('funcionario_contacto', 'varchar');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();;

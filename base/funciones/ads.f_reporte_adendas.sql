@@ -29,32 +29,55 @@ begin
                             HAVING estado is not null';
         return v_consulta;
     elsif (p_transaccion = 'ADS_RPT_AD') then
-        v_consulta = 'select
-               ad.numero,
-               ad.num_tramite,
-               con.numero  as numero_contrato,
-               ad.estado_reg,
-               ad.fecha_entrega,
-               ad.observacion,
-               wfp.descripcion,
-               wfe.fecha_mod,
-               ad.estado,
-               dep.nombre  as nombre_depto,
-               ad.total_pago as total_pago,
-               fun.desc_funcionario1
-        from ads.tadendas ad
-                 left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
-                 inner join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
-                 left join segu.tusuario usu2 on usu2.id_usuario = obpg.id_usuario_mod
-                 inner join param.tmoneda mn on mn.id_moneda = obpg.id_moneda
-                 inner join segu.tsubsistema ss on ss.id_subsistema = obpg.id_subsistema
-                 inner join param.tdepto dep on dep.id_depto = obpg.id_depto
-                 left join param.vproveedor pv on pv.id_proveedor = obpg.id_proveedor
-                 left join leg.tcontrato con on con.id_contrato = obpg.id_contrato
-                 left join param.tplantilla pla on pla.id_plantilla = obpg.id_plantilla
-                 left join orga.vfuncionario fun on fun.id_funcionario = ad.id_funcionario
-                left join wf.tproceso_wf wfp on wfp.id_proceso_wf = ad.id_proceso_wf
-                left join wf.testado_wf wfe on wfe.id_estado_wf = ad.id_estado_wf
+        v_consulta = 'select ad.id_adenda,
+                           ad.id_obligacion_pago,
+                           ad.id_estado_wf,
+                           ad.id_proceso_wf,
+                           ad.id_funcionario,
+                           dep.id_depto,
+                           ad.num_tramite,
+                           COALESCE(ad.total_pago, 0) as total_pago,
+                           ad.estado_reg,
+                           ad.estado,
+                           ad.fecha_entrega,
+                           ad.observacion,
+                           ad.numero,
+                           ad.numero_modificatorio,
+                           ad.fecha_informe,
+                           ad.lugar_entrega,
+                           ad.forma_pago,
+                           ad.glosa,
+                           dep.nombre                 as nombre_depto,
+                           con.numero                 as numero_contrato,
+                           fun.desc_funcionario1,
+                           sol.tipo,
+                           vcon.numero as numero_adenda,
+                           ad.id_contrato_adenda,
+                           t.id_tipo,
+                           t.descripcion,
+                           fun.codigo,
+                           pv.rotulo_comercial,
+                           inst.direccion,
+                           cot.correo_contacto,
+                           cot.funcionario_contacto
+                    from ads.tadendas ad
+                             join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
+                             join ads.ttipos t on t.id_tipo = ad.id_tipo
+                             left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
+                             join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
+                             left join segu.tusuario usu2 on usu2.id_usuario = obpg.id_usuario_mod
+                             join param.tmoneda mn on mn.id_moneda = obpg.id_moneda
+                             join segu.tsubsistema ss on ss.id_subsistema = obpg.id_subsistema
+                             join param.tdepto dep on dep.id_depto = obpg.id_depto
+                             left join param.vproveedor pv on pv.id_proveedor = obpg.id_proveedor
+                             left join param.tinstitucion inst on inst.id_institucion = pv.id_institucion
+                             left join leg.tcontrato con on con.id_contrato = obpg.id_contrato
+                             left join param.tplantilla pla on pla.id_plantilla = obpg.id_plantilla
+                             left join orga.vfuncionario fun on fun.id_funcionario = wf.id_funcionario
+                             join adq.tcotizacion cot on cot.id_obligacion_pago = obpg.id_obligacion_pago
+                             join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
+                             join adq.tsolicitud sol on sol.id_solicitud = pc.id_solicitud
+                             left join leg.vcontrato vcon on vcon.id_contrato = ad.id_contrato_adenda
                      WHERE ad.id_adenda=' || v_id_adenda;
         return v_consulta;
     elsif (p_transaccion = 'ADS_RPT_AD_DET') then

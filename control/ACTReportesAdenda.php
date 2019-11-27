@@ -29,7 +29,7 @@ class ACTReportesAdenda extends ACTbase
 
 
         $this->objFunc1 = $this->create('MODAdendaDet');
-        $this->res_adenda_detalle = $this->objFunc1->adendaDetalleRpt();
+        $this->res_adenda_detalle = $this->objFunc1->listar();
 
         $this->objFunc2 = $this->create('MODAdendaDet');
         $this->res_presupuesto_detalle = $this->objFunc2->presupuestoDetalleRpt();
