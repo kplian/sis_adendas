@@ -219,17 +219,14 @@ header("content-type: text/javascript; charset=UTF-8");
             {
                 config: {
                     name: 'fecha_entrega',
-                    currencyChar: ' ',
                     fieldLabel: 'Fecha Entrega',
                     allowBlank: false,
                     anchor: '100%',
                     width: '100%',
-                    maxLength: 1245184,
-                    renderer: function (value, p, record) {
-                        return value ? value.dateFormat(conf.format_date) : ''
-                    }
+                    maxLength: 1000
                 },
-                type: 'DateField',
+                type: 'Datefield',
+                filters: {pfiltro: 'fecha_entrega', type: 'string'},
                 id_grupo: 1,
                 grid: true,
                 form: true
@@ -319,7 +316,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     maxLength: 1000
                 },
                 type: 'Datefield',
-                filters: {pfiltro: 'numero_modificatorio', type: 'string'},
+                filters: {pfiltro: 'fecha_informe', type: 'string'},
                 id_grupo: 1,
                 grid: true,
                 form: false
@@ -381,7 +378,7 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'estado_reg', type: 'string'},
             {name: 'num_tramite', type: 'string'},
             {name: 'total_pago', type: 'mumeric'},
-            {name: 'fecha_entrega', type: 'date'},
+            {name: 'fecha_entrega', type: 'string'},
             {name: 'observacion', type: 'string'},
             {name: 'numero', type: 'string'},
             {name: 'numero_modificatorio', type: 'string'},

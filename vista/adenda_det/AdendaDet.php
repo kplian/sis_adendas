@@ -273,6 +273,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     anchor: '80%',
                     gwidth: 100,
                     maxLength: 1245184,
+                    readOnly: true,
                     renderer: function (value, p, record, rowIndex, colIndex, ds) {
                         var color = '#FF0000';
                         if (!Boolean(record.data.id_obligacion_det)) {

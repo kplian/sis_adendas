@@ -29,16 +29,17 @@ DECLARE
     v_record_id_funcionario_gg  varchar;
     v_record_id_funcionario_gaf varchar;
     v_integer_gg                integer;
-
+    v_fecha_actual              date;
 BEGIN
     v_nombre_funcion = 'adq.f_lista_funcionario_aprobador';
-
+    v_fecha_actual = now();
     select ad.fecha_entrega,
-           ad.id_funcionario,
+           wf.id_funcionario,
            ad.total_pago as monto_pago_mb
     into
         v_reg_op
     from ads.tadendas ad
+    join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
     where ad.id_estado_wf = p_id_estado_wf;
 
     WITH RECURSIVE path(id_funcionario, id_uo, presupuesta, gerencia, numero_nivel) AS (
@@ -48,8 +49,8 @@ BEGIN
                             on uo.id_uo = uofun.id_uo
                  inner join orga.tnivel_organizacional no
                             on no.id_nivel_organizacional = uo.id_nivel_organizacional
-        where uofun.fecha_asignacion <= v_reg_op.fecha_entrega
-          and (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.fecha_entrega)
+        where uofun.fecha_asignacion <= v_fecha_actual
+          and (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_fecha_actual)
           and uofun.estado_reg = 'activo'
           and uofun.id_funcionario = v_reg_op.id_funcionario
         UNION
@@ -64,9 +65,9 @@ BEGIN
                             on hijo.id_uo = euo.id_uo_hijo
                  left join orga.tuo_funcionario uofun
                            on uo.id_uo = uofun.id_uo and uofun.estado_reg = 'activo' and
-                              uofun.fecha_asignacion <= v_reg_op.fecha_entrega
+                              uofun.fecha_asignacion <= v_fecha_actual
                                and
-                              (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_reg_op.fecha_entrega)
+                              (uofun.fecha_finalizacion is null or uofun.fecha_finalizacion >= v_fecha_actual)
     )
     SELECT pxp.aggarray(id_uo)
     into
@@ -97,7 +98,7 @@ BEGIN
                                                      null,
                                                      null,
                                                      v_id_subsistema,
-                                                     v_reg_op.fecha_entrega,
+                                                     v_fecha_actual,
                                                      v_reg_op.monto_pago_mb,
                                                      p_id_usuario,
                                                      null
@@ -149,7 +150,7 @@ BEGIN
                                                          null,
                                                          null,
                                                          v_id_subsistema,
-                                                         v_reg_op.fecha_entrega,
+                                                         v_fecha_actual,
                                                          v_reg_op.monto_pago_mb,
                                                          p_id_usuario,
                                                          null

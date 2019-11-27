@@ -380,7 +380,6 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'fecha_fin', type: 'date'},
             {name: 'fecha_soli', type: 'date'},
             {name: 'numero', type: 'string'},
-            {name: 'fecha_entrega', type: 'date'},
             {name: 'observacion', type: 'string'},
             {name: 'id_funcionario', type: 'numeric'},
             {name: 'id_contrato_adenda', type: 'numeric'},
@@ -388,6 +387,8 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'forma_pago', type: 'string'},
             {name: 'glosa', type: 'string'},
             {name: 'numero_modificatorio', type: 'string'},
+            {name: 'fecha_informe', type: 'date', dateFormat: conf.format_datetime},
+            {name: 'fecha_entrega', type: 'date', dateFormat: conf.format_datetime},
         ],
         ActSave: '../../sis_adendas/control/Adendas/clonarObligacion',
         constructor: function (config) {
@@ -534,9 +535,9 @@ header("content-type: text/javascript; charset=UTF-8");
         llenarEditFormulario: function (adenda) {
             var self = this;
             self.getComponente('id_adenda').setValue(adenda.id_adenda);
-            self.getComponente('fecha_entrega').setValue(adenda.fecha_entrega);
+            self.getComponente('fecha_entrega').setValue(moment(adenda.fecha_entrega).format('DD/MM/YYYY'));
             self.getComponente('numero_modificatorio').setValue(adenda.numero_modificatorio);
-            self.getComponente('fecha_informe').setValue(adenda.fecha_informe);
+            self.getComponente('fecha_informe').setValue(moment(adenda.fecha_informe).format('DD/MM/YYYY'));
             self.getComponente('lugar_entrega').setValue(adenda.lugar_entrega);
             self.getComponente('forma_pago').setValue(adenda.forma_pago);
             self.getComponente('glosa').setValue(adenda.glosa);
