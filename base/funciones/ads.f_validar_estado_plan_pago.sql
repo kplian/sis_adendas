@@ -10,7 +10,7 @@ begin
     v_nombre_funcion = 'ads.f_validar_estado_plan_pago';
     if exists(select 1
                   from tes.tplan_pago pp
-                  where pp.estado not in ('anticipado', 'devengado')
+                  where pp.estado not in ('anticipado', 'devengado','anulado')
                     and pp.id_obligacion_pago = p_id_obligacion
                     AND id_plan_pago_fk is null) then
         raise exception 'No es posible crear un modificatorio para Obligaciones de pago con pagos en curso';
