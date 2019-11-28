@@ -52,7 +52,6 @@ class ACTAdendas extends ACTbase
 
     function clonarObligacion()
     {
-        $this->objParam->addParametro('id_funcionario', $_SESSION["ss_id_funcionario"]);
         $this->objParam->addParametro('estado_reg', 'activo');
         $this->objFunc = $this->create('MODAdenda');
         if ($this->objParam->insertar('id_adenda')) {
