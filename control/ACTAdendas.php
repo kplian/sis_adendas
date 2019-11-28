@@ -17,6 +17,10 @@ class ACTAdendas extends ACTbase
         if ($this->objParam->getParametro('estado') != '') {
             $this->objParam->addFiltro("ad.estado = ''" . $this->objParam->getParametro('estado') . "''");
         }
+        else{
+            $this->objParam->addFiltro("ad.estado != ''anulado''");
+        }
+
         if ($this->objParam->getParametro('id_obligacion_pago') != '') {
             $this->objParam->addFiltro("ad.id_obligacion_pago = ''" . $this->objParam->getParametro('id_obligacion_pago') . "''");
         }
