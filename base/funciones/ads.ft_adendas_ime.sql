@@ -294,7 +294,7 @@ BEGIN
 
             select te.id_tipo_estado, te.codigo, ew.id_estado_wf
             into
-                v_id_tipo_estado, v_codigo_estado, v_id_estado_wf
+                v_id_tipo_estado, v_codigo_estado
             from wf.tproceso_wf pw
                      inner join wf.ttipo_proceso tp on pw.id_tipo_proceso = tp.id_tipo_proceso
                      inner join wf.ttipo_estado te on te.id_tipo_proceso = tp.id_tipo_proceso and te.codigo = 'anulado'
