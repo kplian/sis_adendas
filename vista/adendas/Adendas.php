@@ -225,7 +225,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     width: '100%',
                     maxLength: 1000
                 },
-                type: 'Datefield',
+                type: 'DateField',
                 filters: {pfiltro: 'fecha_entrega', type: 'string'},
                 id_grupo: 1,
                 grid: true,
@@ -315,7 +315,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     width: '100%',
                     maxLength: 1000
                 },
-                type: 'Datefield',
+                type: 'DateField',
                 filters: {pfiltro: 'fecha_informe', type: 'string'},
                 id_grupo: 1,
                 grid: true,
