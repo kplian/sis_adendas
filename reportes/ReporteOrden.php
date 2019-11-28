@@ -13,29 +13,34 @@ Class ReporteOrden extends ReportePDF implements Estrategia
     var $objParam;
     var $width;
     var $dataSource;
-
+    var $BG_COLOR='#C0C0C0';
     function Header()
     {
         $adenda = $this->getDataSource()->getParameter('adenda');
         $adenda = $adenda[0];
-        $header = '<table width="100%" cellpadding="0" cellspacing="0" >';
+        $header = '<table width="100%" border="0" cellpadding="0" cellspacing="5" >';
         $header .= '<tr>';
-        $header .= '<td width="25%" rowspan="2">';
+        $header .= '<td width="24%" rowspan="3">';
         $header .= '<img src="' . dirname(__FILE__) . '/../../lib/imagenes/logos/logo.jpg' . '" />';
         $header .= '</td>';
-        $header .= '<td width="60%" >';
+        $header .= '<td width="64%" >';
         $header .= '</td>';
-        $header .= '<td width="15%" align="center"  >';
+        $header .= '<td width="16%" align="center"  >';
         $header .= $this->datosCabecera($adenda);
         $header .= '</td>';
         $header .= '</tr>';
-
         $header .= '<tr>';
         $header .= '<td align="center">';
-        $header .= '<h2>Orden de Compra Modificatorio N&deg; ' . $adenda['numero_modificatorio'] . '</h2>';
         $header .= '</td>';
         $header .= '<td>';
-        $header .= $this->titulo($adenda);
+        $header .= '</td>';
+        $header .= '</tr>';
+        $header .= '<tr>';
+        $header .= '<td align="center">';
+        $header .= '<h1>Orden de Compra Modificatorio N&deg; ' . $adenda['numero_modificatorio'] . '</h1>';
+        $header .= '</td>';
+        $header .= '<td>';
+        $header .= $this->fecha($adenda);
         $header .= '</td>';
         $header .= '</tr>';
         $header .= '</table>';
@@ -44,7 +49,7 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     private function datosCabecera($adenda)
     {
-        $content = '<table style="font-size: 8pt;" cellpadding="0" cellspacing="0">';
+        $content = '<table style="font-size: 6pt;font-stretch:condensed;white-space:nowrap;font-weight: bold " cellpadding="0" cellspacing="0">';
         $content .= '<tr>';
         $content .= '<td align="right">';
         $content .= $adenda['num_tramite'];
@@ -59,10 +64,10 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         return iconv('UTF-8', 'ISO-8859-1//TRANSLIT', utf8_encode($content));
     }
 
-    private function titulo($adenda)
+    private function fecha($adenda)
     {
         $fecha_modificacion = DateTime::createFromFormat("Y-m-d", $adenda['fecha_informe']);
-        $content = '<table border="1" style="font-size: 8pt;" cellpadding="0" cellspacing="0">';
+        $content = '<table border="1" width="100%" style="font-size: 8pt;" cellpadding="1" cellspacing="0">';
         $content .= '<tr>';
         $content .= '<th align="center"><b>Dia</b></th>';
         $content .= '<th align="center"><b>Mes</b></th>';
@@ -85,16 +90,16 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function datosProveedor($adenda)
     {
-        $content = '<table  cellpadding="0" cellspacing="3">';
+        $content = '<table width="70%" cellpadding="2" style="font-size: 7pt">';
         $content .= '<tr>';
-        $content .= '<th width="10%"><b>Se&ntilde;or(es):</b></th>';
-        $content .= '<td width="90%" style="background-color: #E1E8F0;">';
+        $content .= '<th width="15%"><b>Se&ntilde;or(es):</b></th>';
+        $content .= '<td width="90%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['rotulo_comercial'];
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
-        $content .= '<th width="10%"><b>Direcci&oacute;n:</b></th>';
-        $content .= '<td  width="90%" style="background-color: #E1E8F0;">';
+        $content .= '<th width="15%"><b>Direcci&oacute;n:</b></th>';
+        $content .= '<td  width="90%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['direccion'];
         $content .= '</td>';
         $content .= '</tr>';
@@ -104,15 +109,15 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function Footer()
     {
+        $this->setY(-24); //-80  30
         $this->notaFinal();
         $this->SetFontSize(8.5);
-        parent::Footer();
     }
 
     function notaFinal()
     {
         $this->SetFontSize(5.5);
-        $this->setY(-30); //-80  30
+//        $this->setY(-30); //-80  30
         $ormargins = $this->getOriginalMargins();
         $this->SetTextColor(0, 0, 0);
         //set style for cell border
@@ -140,32 +145,45 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function generarReporte()
     {
-        $html = '<hr>';
+        $html = '';
         $adenda = $this->dataSource->getParameter('adenda');
         $adendaDet = $this->dataSource->getParameter('adendaDet');
         $presupuestoDet = $this->dataSource->getParameter('presupuestoDet');
         $adenda = $adenda[0];
+        $this->width = $this->getPageWidth($this->getPage());
 
         $this->AddPage();
 
-        $this->width = $this->getPageWidth($this->getPage());
-        $this->SetFontSize(8);
+        $this->setFont('','');
         $this->setTextColor(0, 0, 0);
         $this->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' 008', PDF_HEADER_STRING);
 
-        $html .= '<br/>';
+        // set document information
+        $this->SetCreator(PDF_CREATOR);
+        // set default monospaced font
+        $this->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+        //set margins
+        $this->SetMargins(PDF_MARGIN_LEFT, 40, PDF_MARGIN_RIGHT);
+        $this->SetHeaderMargin(10);
+        //set auto page breaks
+        $this->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+        $this->SetFooterMargin(PDF_MARGIN_FOOTER);
+        //set image scale factor
+        $this->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+        $html .= '<br/><br/><br/>';
         $html .= $this->datosProveedor($adenda);
         $html .= '<br/><br/>';
-        $html .= $this->agregar_datos_detalle($adendaDet);
-        $html .= '<br/><br/>';
+        $html .= $this->agregar_datos_detalle($adendaDet,$adenda);
+        $html .= '<br/>';
         $html .= $this->detalleEntrega($adenda);
-        $html .= '<br/><br/>';
+        $html .= '<br/><br/><br/><br/>';
         $html .= $this->datosContacto($adenda);
         $html .= '<br/><br/>';
         $html .= $this->datosGlosa($adenda);
         $html .= '<br/><br/>';
         $html .= $this->notas();
-        $html .= '<br/><br/>';
+        $html .= '<br/><br/><br/><br/><br/><br/><br/>';
         $html .= $this->conciliacion();
         $html .= '<br/><br/>';
         $html .= $this->firmasAutorizacion();
@@ -174,25 +192,25 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $this->writeHTML(iconv('UTF-8', 'ISO-8859-1//TRANSLIT', utf8_encode($html)), true, false, true, false, '');
     }
 
-    function agregar_datos_detalle($detalles)
+    function agregar_datos_detalle($detalles,$adenda)
     {
         $obj = new Numbers_Words_es_AR;
-        $styleHeader = 'style="background-color: #003366;color:#FFFFFF;font-weight: bold;"';
+        $styleHeader = '';
         $tbl = '<table>';
         $tbl .= '<tr>';
-        $tbl .= '<td  width="100%" >';
+        $tbl .= '<td  width="100%" style="font-size: 10pt">';
         $tbl .= 'De acuerdo a la propuesta económica presentada por su empresa, se detalla:';
         $tbl .= '</td>';
         $tbl .= '</tr>';
         $tbl .= '</table>';
         $tbl .= '<br/><br/>';
-        $tbl .= '<table border="0.5pt"  width="100%"  cellpadding="2" cellspacing="0"  style="font-family: Monospaced;font-size: 8pt;">';
+        $tbl .= '<table border="1"  width="100%"  cellpadding="2" cellspacing="0"  style="font-size: 7pt;">';
         $tbl .= '<thead>';
         $tbl .= '<tr>';
-        $tbl .= '<th ' . $styleHeader . ' width="10%">Cantidad</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="15%">Precio Unitario</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="55%">Partida</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="20%">Monto</th>';
+        $tbl .= '<th ' . $styleHeader . ' width="10%" align="center">Cantidad</th>';
+        $tbl .= '<th ' . $styleHeader . ' width="15%" align="center">Precio Unitario</th>';
+        $tbl .= '<th ' . $styleHeader . ' width="55%">Ítem</th>';
+        $tbl .= '<th ' . $styleHeader . ' width="20%" align="right">Total</th>';
         $tbl .= '</tr>';
         $tbl .= '</thead>';
         $tbl .= '<tbody>';
@@ -201,14 +219,14 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         foreach ($detalles as $detalle) {
             $style = '';
             if ($i % 2 == 0) {
-                $style = 'background-color: #E1E8F0;';
+                $style = '';
             }
             $tbl .= '<tr>';
-            $tbl .= '<td width="10%" style="' . $style . '" align="right">' . $detalle['cantidad_adjudicada'] . '</td>';
-            $tbl .= '<td width="15%" style="' . $style . '" align="right">' . $detalle['precio_unitario'] . '</td>';
-            $tbl .= '<td width="55%" style="' . $style . '">';
+            $tbl .= '<td width="10%" style="' . $style . '" align="center">&nbsp;' . $detalle['cantidad_adjudicada'] . '</td>';
+            $tbl .= '<td width="15%" style="' . $style . '" align="left">&nbsp;' . $detalle['precio_unitario'] . '</td>';
+            $tbl .= '<td width="55%" style="' . $style . '">&nbsp;';
             $tbl .= $detalle['nombre_partida'] . '<br/>';
-            $tbl .= "-&nbsp;" . $detalle['descripcion'] . '<br/>';
+            $tbl .= "&nbsp;-&nbsp;" . $detalle['descripcion'] . '<br/>';
             $tbl .= '</td>';
             $tbl .= '<td width="20%" style="' . $style . '" align="right">' . $detalle['monto_pago_mo'] . '</td>';
             $tbl .= '</tr>';
@@ -217,8 +235,9 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         }
         $numero = explode('.', number_format($precioTotal, 2));
         $precioLiteral = strtoupper(trim($obj->toWords(str_replace(',', '', $numero[0])))) . ' ' . $numero[1] . '/' . '100 ';
+        $moneda = strtoupper($adenda['moneda']);
         $tbl .= '<tr>';
-        $tbl .= '<td colspan="3" align="right">' . $precioLiteral . '</td>';
+        $tbl .= '<td colspan="3" align="left">SON: ' . $precioLiteral . '&nbsp;' . $moneda . '</td>';
         $tbl .= '<td width="20%" style="' . $style . '" align="right">' . $precioTotal . '</td>';
         $tbl .= '</tr>';
         $tbl .= '</tbody>';
@@ -228,20 +247,26 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function detalleEntrega($adenda)
     {
-        $content = '<table  width="100%" cellpadding="3" cellspacing="2">';
+        $content = '<table  width="100%" style="font-size: 8pt;" cellpadding="2" cellspacing="0">';
         $content .= '<tr>';
         $content .= '<th width="20%">';
         $content .= '<b>Fecha de Entrega:</b>';
         $content .= '</th>';
-        $content .= '<td width="80%" style="background-color: #E1E8F0;">';
+        $content .= '<td width="80%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['fecha_entrega'];
+        $content .= '</td>';
+        $content .= '</tr>';
+        $content .= '<tr>';
+        $content .= '<th width="20%">';
+        $content .= '</th>';
+        $content .= '<td width="80%">';
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
         $content .= '<th width="20%">';
         $content .= '<b>Lugar de Entrega:</b>';
         $content .= '</th>';
-        $content .= '<td width="80%" style="background-color: #E1E8F0;">';
+        $content .= '<td width="80%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['lugar_entrega'];
         $content .= '</td>';
         $content .= '</tr>';
@@ -249,7 +274,7 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $content .= '<th width="20%">';
         $content .= '<b>Forma de Pago:</b>';
         $content .= '</th>';
-        $content .= '<td width="80%" style="background-color: #E1E8F0;">';
+        $content .= '<td width="80%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['forma_pago'];
         $content .= '</td>';
         $content .= '</tr>';
@@ -259,20 +284,20 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function datosContacto($adenda)
     {
-        $content = '<table width="100%" cellpadding="3" cellspacing="2" border="0" style="font-size: 7pt;">';
+        $content = '<table width="60%" cellpadding="2" cellspacing="0" border="0" style="font-size: 7pt;">';
         $content .= '<tr>';
-        $content .= '<td width="10%">';
+        $content .= '<td width="15%">';
         $content .= 'Contacto:';
         $content .= '</td>';
-        $content .= '<td width="90%" style="background-color: #E1E8F0;">';
+        $content .= '<td width="70%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['funcionario_contacto'];
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
-        $content .= '<td width="10%">';
+        $content .= '<td width="15%">';
         $content .= 'Correo:';
         $content .= '</td>';
-        $content .= '<td width="90%" style="background-color: #E1E8F0;">';
+        $content .= '<td width="70%" style="background-color: '.$this->BG_COLOR.';">';
         $content .= $adenda['correo_contacto'];
         $content .= '</td>';
         $content .= '</tr>';
@@ -282,10 +307,10 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function datosGlosa($adenda)
     {
-        $content = '<table width="100%" cellpadding="3" cellspacing="2">';
+        $content = '<table width="100%" style="font-size: 8pt" cellpadding="3" cellspacing="2">';
         $content .= '<tr>';
         $content .= '<td>';
-        $content .= '<pre>' . $adenda['glosa'] . '</pre>';
+        $content .= $adenda['glosa'];
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '</table>';
@@ -294,15 +319,21 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function notas()
     {
-        $content = '<table width="100%" cellpadding="3" border="0"  style="font-size: 7pt">';
+        $content = '<table width="100%" cellpadding="0" border="0"  style="font-size: 6pt">';
         $content .= '<tr>';
-        $content .= '<td width="100%" style="text-align: justify;background-color: #E1E8F0;">';
-        $content .= 'La adquisición o contratación debe ser entregada conforme lo establecido en el pliego de condiciones, oferta y orden de compra';
+        $content .= '<td width="100%" style="text-align: justify;background-color: '.$this->BG_COLOR.';">';
+        $content .= 'La adquisición o contratación debe ser entregada conforme lo establecido en el pliego de condiciones, oferta y orden de compra<br/>';
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
-        $content .= '<td width="100%" style="text-align: justify;background-color: #E1E8F0;">';
-        $content .= '<ol type="1"  style="text-align: justify"> <li>Esta orden debe ser confirmada con la Copia adjunta</li>
+        $content .= '<td width="100%">';
+        $content .= '</td>';
+        $content .= '</tr>';
+        $content .= '</table>';
+        $content .= '<table width="50%" cellpadding="0" border="0"  style="font-size: 6pt">';
+        $content .= '<tr>';
+        $content .= '<td width="100%" style="text-align: left;background-color: '.$this->BG_COLOR.';">';
+        $content .= '<ol type="1"  style="text-align: left"> <li>Esta orden debe ser confirmada con la Copia adjunta</li>
         <li>No debe haber ninguna variacion en los Terminos, condiciones, embarque, precios, calidad, cantidad y especificaciones
         indicadas en este periodo.</li>
         <li>El numero de pedido debe aparecer en toda factura, lista de empaque y correspondencia relativa a esta adquisición.</li>
@@ -315,39 +346,33 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '</table>';
-
-        $content .= '<br/><br/>';
-
-        $content .= '<table width="100%" cellpadding="0" border="0">';
+        $content .= '<table width="55%" cellpadding="0" border="0"  style="font-size: 7.5pt">';
         $content .= '<tr>';
-        $content .= '<td style="text-align: justify">';
+        $content .= '<td width="100%" style="text-align: left;">';
         $content .= 'Enviar las facturas en original y copia a ENDE Transmision S.A. NIT 1023097024';
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '</table>';
-
         return iconv('UTF-8', 'ISO-8859-1//TRANSLIT', utf8_encode($content));
     }
 
     function conciliacion()
     {
-        $content = '<table width="100%" cellpadding="3" border="0"  style="font-size: 7pt">';
+        $content = '<table width="100%" cellpadding="3" border="0"  style="font-size: 6pt">';
         $content .= '<tr>';
-        $content .= '<td align="center" style="font-weight: bold">';
+        $content .= '<td align="left">';
         $content .= 'CONCILIACIÓN Y ARBITRAJE';
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
-        $content .= '<td style="text-align: justify">';
+        $content .= '<td style="text-align: left">';
         $content .= 'Las partes del presente contrato se comprometen a someter a la jurisdicción arbitral del Centro de Conciliación y Arbitraje Institucional de la Cámara de Comercio de Cochabamba, ante cualquier controversia
         que surja de la interpretación del presente contrato, de todos los documentos anexos que forman parte del mismo. Asimismo declaran que acataran el Acta de conciliación o el laudo arbitral, comprometiéndose
         a no presentar ninguna demanda de anulación. Cada parte elegirá un arbitro, el centro de conciliación y Arbitraje, elegirá el tercero. Las partes de común acuerdo, podrán elegir un solo arbitro.';
         $content .= '</td>';
         $content .= '</tr>';
-        $content .= '</table>';
-        $content .= '<table width="100%" cellpadding="3" border="0">';
         $content .= '<tr>';
-        $content .= '<td style="text-align: justify">';
+        $content .= '<td>';
         $content .= 'EN CONFORMIDAD CON LOS TERMINOS DEL PRESENTE CONTRATO';
         $content .= '</td>';
         $content .= '</tr>';
@@ -358,10 +383,10 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function firmasAutorizacion()
     {
-        $content = '<table width="100%" cellpadding="3" border="0">';
+        $content = '<table width="100%" cellpadding="3" border="0" style="font-size: 6pt;">';
         $content .= '<tr>';
         $content .= '<td>';
-        $content .= '';
+        $content .= '<br/><br/>';
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';

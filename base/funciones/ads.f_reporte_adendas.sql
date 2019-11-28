@@ -59,7 +59,8 @@ begin
                            pv.rotulo_comercial,
                            inst.direccion,
                            cot.correo_contacto,
-                           cot.funcionario_contacto
+                           cot.funcionario_contacto,
+                            mon.moneda
                     from ads.tadendas ad
                              join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                              join ads.ttipos t on t.id_tipo = ad.id_tipo
@@ -78,6 +79,7 @@ begin
                              join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
                              join adq.tsolicitud sol on sol.id_solicitud = pc.id_solicitud
                              left join leg.vcontrato vcon on vcon.id_contrato = ad.id_contrato_adenda
+                             inner join param.tmoneda mon on mon.id_moneda = sol.id_moneda
                      WHERE ad.id_adenda=' || v_id_adenda;
         return v_consulta;
     elsif (p_transaccion = 'ADS_RPT_AD_DET') then

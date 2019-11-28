@@ -360,7 +360,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     anchor: '100%',
                     maxLength: 5000
                 },
-                type: 'TextArea',
+                type:'HtmlEditor',
                 filters: {pfiltro: 'glosa', type: 'string'},
                 id_grupo: 3,
                 grid: true,

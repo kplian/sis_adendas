@@ -8,7 +8,7 @@ CREATE TABLE ads.tadendas (
   estado VARCHAR(255),
   num_tramite VARCHAR(200),
   total_pago NUMERIC(19,2),
-  fecha_entrega DATE,
+  fecha_entrega timestamp,
   observacion VARCHAR,
   numero VARCHAR,
   numero_adenda VARCHAR,
@@ -128,7 +128,7 @@ alter table ads.tadendas
 /***********************************F-SCP-VAN-ADS-2-15/11/2019****************************************/
 /***********************************I-SCP-VAN-ADS-3-22/11/2019****************************************/
 alter table ads.tadendas
-    add fecha_informe date default null;
+    add fecha_informe timestamp default null;
 alter table ads.tadendas
     add lugar_entrega varchar(500) default null;
 alter table ads.tadendas

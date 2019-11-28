@@ -223,7 +223,10 @@ header("content-type: text/javascript; charset=UTF-8");
                     allowBlank: false,
                     anchor: '100%',
                     width: '100%',
-                    maxLength: 1000
+                    maxLength: 1000,
+                    renderer: function (value, p, record) {
+                        return value ? value.dateFormat(conf.format_date) : ''
+                    }
                 },
                 type: 'DateField',
                 filters: {pfiltro: 'fecha_entrega', type: 'string'},
@@ -313,7 +316,9 @@ header("content-type: text/javascript; charset=UTF-8");
                     allowBlank: true,
                     anchor: '100%',
                     width: '100%',
-                    maxLength: 1000
+                    renderer: function (value, p, record) {
+                        return value ? value.dateFormat(conf.format_date) : ''
+                    }
                 },
                 type: 'DateField',
                 filters: {pfiltro: 'fecha_informe', type: 'string'},
@@ -360,7 +365,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     width: '100%',
                     maxLength: 1000
                 },
-                type: 'field',
+                type:'HtmlEditor',
                 filters: {pfiltro: 'glosa', type: 'string'},
                 id_grupo: 1,
                 grid: false,
@@ -378,11 +383,11 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'estado_reg', type: 'string'},
             {name: 'num_tramite', type: 'string'},
             {name: 'total_pago', type: 'mumeric'},
-            {name: 'fecha_entrega', type: 'string'},
+            {name: 'fecha_entrega', type: 'date'},
             {name: 'observacion', type: 'string'},
             {name: 'numero', type: 'string'},
             {name: 'numero_modificatorio', type: 'string'},
-            {name: 'fecha_informe', type: 'string'},
+            {name: 'fecha_informe', type: 'date'},
             {name: 'lugar_entrega', type: 'string'},
             {name: 'forma_pago', type: 'string'},
             {name: 'glosa', type: 'string'},
