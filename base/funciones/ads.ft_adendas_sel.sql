@@ -59,13 +59,14 @@ BEGIN
                            ad.glosa,
                            dep.nombre                 as nombre_depto,
                            con.numero                 as numero_contrato,
-                           fun.desc_funcionario1,
+                           fun_ad.desc_funcionario1,
                            sol.tipo,
                            vcon.numero as numero_adenda,
                            ad.id_contrato_adenda,
                            t.id_tipo,
                            t.descripcion,
-                           fun.codigo
+                           fun_ad.codigo,
+                           mn.moneda
                     from ads.tadendas ad
                              join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                              join ads.ttipos t on t.id_tipo = ad.id_tipo
@@ -79,6 +80,7 @@ BEGIN
                              left join leg.tcontrato con on con.id_contrato = obpg.id_contrato
                              left join param.tplantilla pla on pla.id_plantilla = obpg.id_plantilla
                              left join orga.vfuncionario fun on fun.id_funcionario = wf.id_funcionario
+                             left join orga.vfuncionario fun_ad on fun_ad.id_funcionario = ad.id_funcionario
                              join adq.tcotizacion cot on cot.id_obligacion_pago = obpg.id_obligacion_pago
                              join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
                              join adq.tsolicitud sol on sol.id_solicitud = pc.id_solicitud
