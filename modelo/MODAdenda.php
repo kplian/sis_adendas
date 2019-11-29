@@ -257,7 +257,7 @@ class MODAdenda extends MODbase
         $this->captura('total_pago', 'numeric');
         $this->captura('estado_reg', 'varchar');
         $this->captura('estado', 'varchar');
-        $this->captura('fecha_entrega', 'date');
+        $this->captura('fecha_entrega', 'timestamp');
         $this->captura('observacion', 'varchar');
         $this->captura('numero', 'varchar');
         $this->captura('numero_modificatorio', 'varchar');

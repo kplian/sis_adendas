@@ -66,7 +66,7 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     private function fecha($adenda)
     {
-        $fecha_modificacion = DateTime::createFromFormat("Y-m-d", $adenda['fecha_informe']);
+        $fecha_modificacion = DateTime::createFromFormat("d/m/Y", date('d/m/Y', strtotime($adenda['fecha_informe'])));
         $content = '<table border="1" width="100%" style="font-size: 8pt;" cellpadding="1" cellspacing="0">';
         $content .= '<tr>';
         $content .= '<th align="center"><b>Dia</b></th>';
