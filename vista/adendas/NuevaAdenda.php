@@ -531,6 +531,16 @@ header("content-type: text/javascript; charset=UTF-8");
                 }, scope: this
             });
             this.Cmp.id_contrato_adenda.store.baseParams.id_contrato_fk = obligacion_pago.id_contrato;
+            this.Cmp.id_tipo.on('select', function (cmp, rec) {
+                if (rec.data.codigo === 'AD') {
+                    this.Cmp.id_contrato_adenda.reset();
+                    this.Cmp.id_contrato_adenda.enable();
+                } else {
+                    this.Cmp.id_contrato_adenda.reset();
+                    this.Cmp.id_contrato_adenda.disable();
+                }
+
+            }, this);
         },
         llenarEditFormulario: function (adenda) {
             var self = this;
@@ -570,17 +580,33 @@ header("content-type: text/javascript; charset=UTF-8");
 
                 }, scope: this
             });
+            this.Cmp.id_tipo.on('select', function (cmp, rec) {
+                if (rec.data.codigo === 'AD') {
+                    this.Cmp.id_contrato_adenda.reset();
+                    this.Cmp.id_contrato_adenda.enable();
+                } else {
+                    this.Cmp.id_contrato_adenda.reset();
+                    this.Cmp.id_contrato_adenda.disable();
+                }
+            }, this);
             this.Cmp.id_tipo.store.baseParams.query = adenda.id_tipo;
             this.Cmp.id_tipo.store.load({
                 params: {start: 0, limit: this.tam_pag},
                 callback: function (r) {
                     if (r.length > 0) {
                         this.Cmp.id_tipo.setValue(r[0].data.id_tipo);
-                        this.Cmp.id_tipo.fireEvent('select', this.Cmp.id_tipo, r[0].data.id_tipo, 0)
+                        if (r[0].data.codigo === 'AD') {
+                            this.Cmp.id_contrato_adenda.reset();
+                            this.Cmp.id_contrato_adenda.enable();
+                        } else {
+                            this.Cmp.id_contrato_adenda.reset();
+                            this.Cmp.id_contrato_adenda.disable();
+                        }
                     }
 
                 }, scope: this
             });
+
 
         },
         successSave: function (resp) {
