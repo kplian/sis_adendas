@@ -16,7 +16,7 @@ begin
     into v_total_descuento
     from tes.tplan_pago pp
     where pp.id_obligacion_pago = p_id_obligacion_pago
-      and pp.id_plan_pago_fk is null;
+      and pp.id_plan_pago_fk is null and pp.estado !='anulado';
 
     select obp.total_pago
     into v_importe_total

@@ -11,7 +11,7 @@ begin
     select coalesce(sum(pr.monto_ejecutar_mo), 0)
     into v_monto_prorrateo
     from tes.tprorrateo pr
-    where id_prorrateo_fk is null
+    where id_prorrateo_fk is null and pr.estado_reg != 'inactivo'
       and pr.id_obligacion_det = p_id_obligacion_pago_det;
 
     return v_monto_prorrateo;

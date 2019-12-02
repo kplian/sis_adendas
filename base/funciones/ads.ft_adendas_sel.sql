@@ -100,6 +100,7 @@ BEGIN
 
             v_consulta := 'select count(id_adenda)
                                             from ads.tadendas ad
+                                            join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                                             join ads.ttipos t on t.id_tipo = ad.id_tipo
                                             left join tes.tobligacion_pago obpg on obpg.id_obligacion_pago = ad.id_obligacion_pago
                                             inner join segu.tusuario usu1 on usu1.id_usuario = obpg.id_usuario_reg
