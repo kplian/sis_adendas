@@ -145,3 +145,7 @@ alter table ads.tadenda_det
 alter table ads.tadenda_det
     add cantidad_adjudicada numeric default 0;
 /***********************************F-SCP-VAN-ADS-4-26/11/2019****************************************/
+/***********************************I-SCP-VAN-ADS-5-2/12/2019****************************************/
+alter table ads.tadendas
+	add id_funcionario_reg int default null;
+/***********************************F-SCP-VAN-ADS-5-26/12/2019****************************************/

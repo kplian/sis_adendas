@@ -105,7 +105,8 @@ BEGIN
                                       numero_modificatorio,
                                       lugar_entrega,
                                       forma_pago,
-                                      glosa)
+                                      glosa,
+                                      id_funcionario_reg)
             VALUES (p_id_usuario,
                     NULL,
                     NOW(),
@@ -129,7 +130,8 @@ BEGIN
                     v_parametros.numero_modificatorio,
                     v_parametros.lugar_entrega,
                     v_parametros.forma_pago,
-                    v_parametros.glosa)
+                    v_parametros.glosa,
+                    v_parametros.id_funcionario_reg)
             RETURNING id_adenda into v_id_adenda;
 
             INSERT INTO ads.tadenda_det(id_usuario_reg,
