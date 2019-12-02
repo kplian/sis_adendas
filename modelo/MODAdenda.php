@@ -81,7 +81,7 @@ class MODAdenda extends MODbase
         $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
         $this->setParametro('forma_pago', 'forma_pago', 'varchar');
         $this->setParametro('glosa', 'glosa', 'codigo_html');
-
+        $this->setParametro('id_funcionario_reg', 'id_funcionario_reg', 'int4');
         $this->armarConsulta();
         $this->ejecutarConsulta();
 
@@ -106,7 +106,7 @@ class MODAdenda extends MODbase
         $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
         $this->setParametro('forma_pago', 'forma_pago', 'varchar');
         $this->setParametro('glosa', 'glosa', 'codigo_html');
-
+        $this->setParametro('id_funcionario_reg', 'id_funcionario_reg', 'int4');
         $this->armarConsulta();
         $this->ejecutarConsulta();
 
@@ -154,7 +154,7 @@ class MODAdenda extends MODbase
         $this->setParametro('lugar_entrega', 'lugar_entrega', 'varchar');
         $this->setParametro('forma_pago', 'forma_pago', 'varchar');
         $this->setParametro('glosa', 'glosa', 'codigo_html');
-
+        $this->setParametro('id_funcionario_reg', 'id_funcionario_reg', 'int4');
         $this->armarConsulta();
         $this->ejecutarConsulta();
 

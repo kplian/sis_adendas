@@ -38,6 +38,7 @@ class ACTAdendas extends ACTbase
 
     function insertar()
     {
+        $this->objParam->addParametro('id_funcionario_reg', $_SESSION["ss_id_funcionario"]);
         $this->objFunc = $this->create('MODAdenda');
         if ($this->objParam->insertar('id_adenda')) {
             $this->res = $this->objFunc->insertar($this->objParam);
@@ -57,6 +58,7 @@ class ACTAdendas extends ACTbase
     function clonarObligacion()
     {
         $this->objParam->addParametro('estado_reg', 'activo');
+        $this->objParam->addParametro('id_funcionario_reg', $_SESSION["ss_id_funcionario"]);
         $this->objFunc = $this->create('MODAdenda');
         if ($this->objParam->insertar('id_adenda')) {
             $this->res = $this->objFunc->clonarObligacion($this->objParam);

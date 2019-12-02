@@ -34,7 +34,7 @@ BEGIN
     end if;
 
     if p_administrador != 1 then
-        v_filtro = ' wf.id_funcionario = ' || v_parametros.id_funcionario || ' and ';
+        v_filtro = ' (wf.id_funcionario = ' || v_parametros.id_funcionario || ' OR ad.id_funcionario_reg = ' || v_parametros.id_funcionario || ') and ';
     end if;
 
     IF (p_transaccion = 'ADS_AD_SEL') THEN
