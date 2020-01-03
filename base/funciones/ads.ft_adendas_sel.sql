@@ -66,7 +66,8 @@ BEGIN
                            t.id_tipo,
                            t.descripcion,
                            fun_ad.codigo,
-                           mn.moneda
+                           mn.moneda,
+                           obpg.fecha
                     from ads.tadendas ad
                              join wf.testado_wf wf on wf.id_estado_wf = ad.id_estado_wf
                              join ads.ttipos t on t.id_tipo = ad.id_tipo

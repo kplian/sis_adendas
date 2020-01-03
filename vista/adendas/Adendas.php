@@ -362,8 +362,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     fieldLabel: 'Glosa',
                     allowBlank: true,
                     anchor: '100%',
-                    width: '100%',
-                    maxLength: 1000
+                    width: '100%'
                 },
                 type:'HtmlEditor',
                 filters: {pfiltro: 'glosa', type: 'string'},
@@ -399,7 +398,8 @@ header("content-type: text/javascript; charset=UTF-8");
             {name: 'id_contrato_adenda', type: 'numeric'},
             {name: 'id_tipo', type: 'numeric'},
             {name: 'descripcion', type: 'string'},
-            {name: 'codigo', type: 'string'}
+            {name: 'codigo', type: 'string'},
+            {name: 'fecha', type: 'string'}
         ],
         arrayDefaultColumHidden: [],
         rowExpander: new Ext.ux.grid.RowExpander({

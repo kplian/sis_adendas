@@ -41,7 +41,7 @@ class MODAdenda extends MODbase
         $this->captura('fecha_informe', 'timestamp');
         $this->captura('lugar_entrega', 'varchar');
         $this->captura('forma_pago', 'varchar');
-        $this->captura('glosa', 'varchar');
+        $this->captura('glosa', 'text');
         $this->captura('nombre_depto', 'varchar');
         $this->captura('numero_contrato', 'varchar');
         $this->captura('desc_funcionario1', 'text');
@@ -52,6 +52,7 @@ class MODAdenda extends MODbase
         $this->captura('descripcion', 'varchar');
         $this->captura('codigo', 'varchar');
         $this->captura('moneda', 'varchar');
+        $this->captura('fecha', 'date');
 
         $this->armarConsulta();
         $this->ejecutarConsulta();
@@ -264,7 +265,7 @@ class MODAdenda extends MODbase
         $this->captura('fecha_informe', 'timestamp');
         $this->captura('lugar_entrega', 'varchar');
         $this->captura('forma_pago', 'varchar');
-        $this->captura('glosa', 'varchar');
+        $this->captura('glosa', 'text');
         $this->captura('nombre_depto', 'varchar');
         $this->captura('numero_contrato', 'varchar');
         $this->captura('desc_funcionario1', 'text');
