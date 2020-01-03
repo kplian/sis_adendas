@@ -149,3 +149,7 @@ alter table ads.tadenda_det
 alter table ads.tadendas
 	add id_funcionario_reg int default null;
 /***********************************F-SCP-VAN-ADS-5-26/12/2019****************************************/
+/***********************************I-SCP-VAN-ADS-6-03/01/2019****************************************/
+alter table ads.tadendas
+    alter column glosa type text using glosa::text;
+/***********************************F-SCP-VAN-ADS-6-03/01/2019****************************************/

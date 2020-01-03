@@ -582,7 +582,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.Cmp.id_centro_costo.store.baseParams.id_depto = this.maestro.id_depto;
             this.Cmp.id_centro_costo.modificado = true;
             this.Cmp.id_concepto_ingas.store.baseParams.tipo = this.maestro.tipo;
-            this.obtenerGestion();
+            this.obtenerGestion(this.maestro.fecha);
             this.load({params: {start: 0, limit: 50}});
 
         },
@@ -656,8 +656,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 this.Cmp.id_concepto_ingas.enable();
             }
         },
-        obtenerGestion: function () {
-            var fecha = new Date();
+        obtenerGestion: function (fecha) {
             Phx.CP.loadingShow();
             Ext.Ajax.request({
                 url: '../../sis_parametros/control/Gestion/obtenerGestionByFecha',

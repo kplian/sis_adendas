@@ -357,8 +357,7 @@ header("content-type: text/javascript; charset=UTF-8");
                     fieldLabel: 'Glosa',
                     allowBlank: false,
                     qtip: 'Descripci&oacute;n breve de la glosa',
-                    anchor: '100%',
-                    maxLength: 5000
+                    anchor: '100%'
                 },
                 type:'HtmlEditor',
                 filters: {pfiltro: 'glosa', type: 'string'},
