@@ -32,7 +32,7 @@ begin
                      inner join adq.tproceso_compra pc on pc.id_proceso_compra = cot.id_proceso_compra
                      inner join adq.tsolicitud s on s.id_solicitud = pc.id_solicitud
             where adt.estado_reg = 'activo'
-              and adt.id_adenda_det in (array_to_string(v_registros.adenda_det_ids, ','):: integer)
+              and adt.id_adenda_det = ANY (v_registros.adenda_det_ids ::integer[])
             limit 1;
 
             if now() < v_adenda_det.fecha_soli then
@@ -68,7 +68,7 @@ begin
                 fecha_comp                  = now(),
                 id_usuario_mod              = p_id_usuario,
                 fecha_mod                   = now()
-            where ad.id_adenda_det in (array_to_string(v_registros.adenda_det_ids, ','):: integer);
+            where ad.id_adenda_det = ANY (v_registros.adenda_det_ids ::integer[]);
 
         end loop;
     v_resp = 'Modificatorio confirmado satisfactoriamente';

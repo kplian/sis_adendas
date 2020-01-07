@@ -53,7 +53,7 @@ begin
                         v_registros.id_concepto_ingas,
                         v_registros.id_centro_costo,
                         v_registros.id_partida,
-                        v_registros.id_partida_ejecucion_com,
+                        v_registros.id_partida_ejecucion_com_ad,
                         v_registros.descripcion,
                         v_registros.monto_pago_mo,
                         v_registros.monto_pago_mb,
