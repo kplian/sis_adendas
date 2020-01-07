@@ -49,7 +49,7 @@ BEGIN
                            cc.codigo_cc,
                            adt.monto_pago_mb,
                            adt.factor_porcentual,
-                           adt.id_partida_ejecucion_com,
+                           (case when adt.id_partida_ejecucion_com is not null then adt.id_partida_ejecucion_com else adt.id_partida_ejecucion_com_ad end) as id_partida_ejecucion_com,
                            adt.fecha_reg,
                            adt.id_usuario_reg,
                            adt.fecha_mod,
