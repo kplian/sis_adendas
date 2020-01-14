@@ -223,22 +223,22 @@ Class ReporteOrden extends ReportePDF implements Estrategia
             }
             $tbl .= '<tr>';
             $tbl .= '<td width="10%" style="' . $style . '" align="center">&nbsp;' . $detalle['cantidad_adjudicada'] . '</td>';
-            $tbl .= '<td width="15%" style="' . $style . '" align="left">&nbsp;' . $detalle['precio_unitario'] . '</td>';
+            $tbl .= '<td width="15%" style="' . $style . '" align="left">&nbsp;' . number_format($detalle['precio_unitario'], 2) . '</td>';
             $tbl .= '<td width="55%" style="' . $style . '">&nbsp;';
             $tbl .= $detalle['nombre_partida'] . '<br/>';
             $tbl .= "&nbsp;-&nbsp;" . $detalle['descripcion'] . '<br/>';
             $tbl .= '</td>';
-            $tbl .= '<td width="20%" style="' . $style . '" align="right">' . $detalle['monto_pago_mo'] . '</td>';
+            $tbl .= '<td width="20%" style="' . $style . '" align="right">' . number_format($detalle['monto_pago_mo'], 2) . '</td>';
             $tbl .= '</tr>';
             $i++;
-            $precioTotal += $precioTotal + $detalle['monto_pago_mo'];
+            $precioTotal = $precioTotal + $detalle['monto_pago_mo'];
         }
         $numero = explode('.', number_format($precioTotal, 2));
         $precioLiteral = strtoupper(trim($obj->toWords(str_replace(',', '', $numero[0])))) . ' ' . $numero[1] . '/' . '100 ';
         $moneda = strtoupper($adenda['moneda']);
         $tbl .= '<tr>';
         $tbl .= '<td colspan="3" align="left">SON: ' . $precioLiteral . '&nbsp;' . $moneda . '</td>';
-        $tbl .= '<td width="20%" style="' . $style . '" align="right">' . $precioTotal . '</td>';
+        $tbl .= '<td width="20%" style="' . $style . '" align="right">' . number_format($precioTotal, 2) . '</td>';
         $tbl .= '</tr>';
         $tbl .= '</tbody>';
         $tbl .= ' </table> ';
