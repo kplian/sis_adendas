@@ -117,10 +117,8 @@ Class ReporteOrden extends ReportePDF implements Estrategia
     function notaFinal()
     {
         $this->SetFontSize(5.5);
-//        $this->setY(-30); //-80  30
         $ormargins = $this->getOriginalMargins();
         $this->SetTextColor(0, 0, 0);
-        //set style for cell border
         $this->SetFont('', 'B');
         $this->Cell($ancho, 0, iconv('UTF-8', 'ISO-8859-1//TRANSLIT', utf8_encode('CONOCIMIENTO SOBRE LA RESPONSABILIDAD')), 0, 0, 'C');
         $this->Ln(2);
@@ -195,7 +193,6 @@ Class ReporteOrden extends ReportePDF implements Estrategia
     function agregar_datos_detalle($detalles,$adenda)
     {
         $obj = new Numbers_Words_es_AR;
-        $styleHeader = '';
         $tbl = '<table>';
         $tbl .= '<tr>';
         $tbl .= '<td  width="100%" style="font-size: 10pt">';
@@ -205,30 +202,23 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $tbl .= '</table>';
         $tbl .= '<br/><br/>';
         $tbl .= '<table border="1"  width="100%"  cellpadding="2" cellspacing="0"  style="font-size: 7pt;">';
-        $tbl .= '<thead>';
         $tbl .= '<tr>';
-        $tbl .= '<th ' . $styleHeader . ' width="10%" align="center">Cantidad</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="15%" align="center">Precio Unitario</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="55%">Ítem</th>';
-        $tbl .= '<th ' . $styleHeader . ' width="20%" align="right">Total</th>';
+        $tbl .= '<th width="10%" align="center">Cantidad</th>';
+        $tbl .= '<th width="15%" align="center">Precio Unitario</th>';
+        $tbl .= '<th width="55%">Ítem</th>';
+        $tbl .= '<th width="20%" align="right">Total</th>';
         $tbl .= '</tr>';
-        $tbl .= '</thead>';
-        $tbl .= '<tbody>';
         $i = 1;
         $precioTotal = 0;
         foreach ($detalles as $detalle) {
-            $style = '';
-            if ($i % 2 == 0) {
-                $style = '';
-            }
             $tbl .= '<tr>';
-            $tbl .= '<td width="10%" style="' . $style . '" align="center">&nbsp;' . $detalle['cantidad_adjudicada'] . '</td>';
-            $tbl .= '<td width="15%" style="' . $style . '" align="left">&nbsp;' . number_format($detalle['precio_unitario'], 2) . '</td>';
-            $tbl .= '<td width="55%" style="' . $style . '">&nbsp;';
+            $tbl .= '<td width="10%" align="center">&nbsp;' . $detalle['cantidad_adjudicada'] . '</td>';
+            $tbl .= '<td width="15%" align="left">&nbsp;' . number_format($detalle['precio_unitario'], 2) . '</td>';
+            $tbl .= '<td width="55%" >&nbsp;';
             $tbl .= $detalle['nombre_partida'] . '<br/>';
             $tbl .= "&nbsp;-&nbsp;" . $detalle['descripcion'] . '<br/>';
             $tbl .= '</td>';
-            $tbl .= '<td width="20%" style="' . $style . '" align="right">' . number_format($detalle['monto_pago_mo'], 2) . '</td>';
+            $tbl .= '<td width="20%" align="right">' . number_format($detalle['monto_pago_mo'], 2) . '</td>';
             $tbl .= '</tr>';
             $i++;
             $precioTotal = $precioTotal + $detalle['monto_pago_mo'];
@@ -238,9 +228,8 @@ Class ReporteOrden extends ReportePDF implements Estrategia
         $moneda = strtoupper($adenda['moneda']);
         $tbl .= '<tr>';
         $tbl .= '<td colspan="3" align="left">SON: ' . $precioLiteral . '&nbsp;' . $moneda . '</td>';
-        $tbl .= '<td width="20%" style="' . $style . '" align="right">' . number_format($precioTotal, 2) . '</td>';
+        $tbl .= '<td width="20%" align="right">' . number_format($precioTotal, 2) . '</td>';
         $tbl .= '</tr>';
-        $tbl .= '</tbody>';
         $tbl .= ' </table> ';
         return iconv('UTF-8', 'ISO-8859-1//TRANSLIT', utf8_encode($tbl));
     }

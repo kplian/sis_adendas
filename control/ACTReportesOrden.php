@@ -41,7 +41,7 @@ class ACTReportesOrden extends ACTbase
         $dataSource->putParameter('adendaDet', $datosAdendaDet);
         $dataSource->putParameter('presupuestoDet', $datosPresupuesto);
 
-        $nombreArchivo = uniqid(md5(session_id()) . 'Adenda') . '.pdf';
+        $nombreArchivo = uniqid(md5(session_id()) . '-Orden') . '.pdf';
         $this->objParam->addParametro('orientacion', 'P');
         $this->objParam->addParametro('tamano', 'LETTER');
         $this->objParam->addParametro('titulo_archivo', 'Adenda');
