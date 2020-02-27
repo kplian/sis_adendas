@@ -49,6 +49,8 @@ DECLARE
     v_id_estado_actual     integer;
     v_id_tipo_estado       integer;
     v_registros_adenda     record;
+    v_errors               varchar;
+    v_cant_no_disponibles  int;
 BEGIN
 
     v_nombre_funcion = 'ads.ft_adendas_ime';
@@ -373,10 +375,16 @@ BEGIN
             v_obs = '';
 
             if va_codigo_estado[1]::varchar = 'aprobado' then
-                IF exists(select *
-                          from ads.f_verificar_presupuesto() vp
-                          where vp.disponible = 'false'
-                            and vp.id_adenda = v_parametros.id_adenda) THEN
+
+                select array_to_string(array_agg(vp.mensaje_error), '<br />'), count(vp.disponible)
+                into v_errors, v_cant_no_disponibles
+                from ads.f_verificar_presupuesto() vp
+                where vp.id_adenda = v_parametros.id_adenda
+                  and disponible = 'false';
+
+                IF v_errors is not null and v_cant_no_disponibles > 0 THEN
+                    RAISE EXCEPTION '%',v_errors;
+                ELSIF v_cant_no_disponibles > 0 THEN
                     RAISE EXCEPTION 'No se tiene suficiente presupeusto para el tramite (%)', v_num_tramite;
                 END IF;
                 v_resp = ads.f_aprobar_adenda(v_parametros.id_adenda, p_id_usuario);

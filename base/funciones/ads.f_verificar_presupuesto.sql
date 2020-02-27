@@ -1,3 +1,4 @@
+DROP FUNCTION IF EXISTS ads.f_verificar_presupuesto();
 create or replace function ads.f_verificar_presupuesto()
     returns TABLE
             (
@@ -9,6 +10,7 @@ create or replace function ads.f_verificar_presupuesto()
                 nombre_partida  varchar,
                 monto_operacion numeric,
                 disponible      varchar,
+                mensaje_error   varchar,
                 adenda_det_ids  integer[],
                 techo           varchar
             )
@@ -75,6 +77,13 @@ begin
             nombre_partida = v_registros.nombre_partida;
             monto_operacion = v_registros.monto_total_operacion;
             disponible = v_resp_pre[1]::varchar;
+
+            if (v_resp_pre[6] is not null and v_resp_pre[5] is not null and v_resp_pre[5] = 'Bloqueado') then
+                mensaje_error = v_resp_pre[6];
+            else
+                mensaje_error = NULL;
+            end if;
+
             adenda_det_ids = v_registros.adenda_det_ids;
 
             return next;
