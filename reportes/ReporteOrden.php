@@ -236,13 +236,14 @@ Class ReporteOrden extends ReportePDF implements Estrategia
 
     function detalleEntrega($adenda)
     {
+        $fecha_entrega = DateTime::createFromFormat("d/m/Y", date('d/m/Y', strtotime($adenda['fecha_entrega'])));
         $content = '<table  width="100%" style="font-size: 8pt;" cellpadding="2" cellspacing="0">';
         $content .= '<tr>';
         $content .= '<th width="20%">';
         $content .= '<b>Fecha de Entrega:</b>';
         $content .= '</th>';
         $content .= '<td width="80%" style="background-color: '.$this->BG_COLOR.';">';
-        $content .= $adenda['fecha_entrega'];
+        $content .= $fecha_entrega->format('Y-m-d');
         $content .= '</td>';
         $content .= '</tr>';
         $content .= '<tr>';
