@@ -40,7 +40,7 @@ begin
             else
                 v_fecha = now()::date;
                 v_anio_1 = extract(year from now()::date);
-                v_anio_1 = extract(year from v_adenda_det.fecha_soli::date);
+                v_anio_2 = extract(year from v_adenda_det.fecha_soli::date);
 
                 if v_anio_1 > v_anio_2 then
                     v_fecha = ('31-12-' || v_anio_2::varchar)::date;
